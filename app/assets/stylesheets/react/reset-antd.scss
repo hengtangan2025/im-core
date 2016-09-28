@@ -1,0 +1,69 @@
+.ant-btn {
+  font-size: 14px;
+  border-radius: 100px;
+  padding: 4px 1rem;
+  line-height: 22px;
+
+  &.ant-btn-sm {
+    font-size: 12px;
+    padding: 1px 12px;
+  }
+}
+
+.ant-table {
+  font-size: 14px;
+
+  td, th {
+    padding: 1rem;
+  }
+
+  .ant-divider {
+    margin: 0 10px;
+    height: 10px;
+  }
+}
+
+.ant-breadcrumb {
+  font-size: 14px;
+}
+
+.ant-menu {
+  .ant-menu-item {
+    font-size: 14px;
+  }
+
+  .ant-menu-submenu .ant-menu-submenu-title {
+    font-size: 14px;
+  }
+}
+
+.ant-popover {
+  .ant-popover-buttons {
+    overflow: hidden;
+    .ant-btn {
+      float: right;
+    }
+  }
+}
+
+.ant-modal {
+  .ant-modal-footer {
+    overflow: hidden;
+    .ant-btn {
+      float: right;
+      margin-left: 8px;
+    }
+  }
+}
+
+.ant-switch:after {
+  left: 1px;
+}
+
+.ant-switch-checked:after {
+  left: 23px;
+}
+
+.ant-alert {
+  font-size: 14px;
+}

@@ -1,5 +1,8 @@
 /*
- *= require antd/antd-1.6.4.min
+ *= require boilerplate/normalize 
+ *= require boilerplate/main
+ *
+ *= require antd/antd-2.0.0.min
  *
  *= require_tree .
  *= require_self

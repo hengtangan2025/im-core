@@ -191,6 +191,27 @@ Rails.application.config.assets.precompile += %w( libs.js )
 
 
 
+### 其他备注
+
+ant-design 的 js 和 css 是自己从他的源码编译的，编译之前修改了字号
+
+修改 `components/style/themes/default.less`中的
+
+```les
+@font-size-base         : 14px;
+```
+
+如果有其他想改的也可以在这里改
+
+```shell
+npm install
+npm run dist
+```
+
+
+
+
+
 ## 参考资料
 
 ### rspec 3.0 expect 写法

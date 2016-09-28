@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
   def default_render
     if @component_name.present?
       @component_name = @component_name.camelize
-      return render template: '/index/component'
+      
+      respond_to do |format|
+        format.html { render template: '/index/component' }
+        format.json { render json: @component_data }
+      end
     else
       super
     end

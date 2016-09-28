@@ -9,19 +9,36 @@ class OrganizationNode
 
   field :name, type: String
 
-  def self.from_yaml(yaml_string)
-    data = YAML.load yaml_string
+  class << self
+    def from_yaml(yaml_string)
+      data = YAML.load yaml_string
 
-    root = OrganizationNode.create(name: data['name'])
-    _from_yaml_r(root, data['children'])
+      root = OrganizationNode.create(name: data['name'])
+      _from_yaml_r(root, data['children'])
+    end
+
+    def import_sample
+      OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree.yaml')
+    end
+
+    private
+      def _from_yaml_r(parent, children_data)
+        return if children_data.blank?
+        children_data.each do |child_data|
+          child = OrganizationNode.create(name: child_data['name'], parent: parent)
+          _from_yaml_r(child, child_data['children'])
+        end
+      end
   end
 
-  private
-    def self._from_yaml_r(parent, children_data)
-      return if children_data.blank?
-      children_data.each do |child_data|
-        child = OrganizationNode.create(name: child_data['name'], parent: parent)
-        _from_yaml_r(child, child_data['children'])
-      end
-    end
+  def tree_data
+    {
+      id: id.to_s,
+      name: name,
+      children: (children || []).map { |c|
+        c.tree_data
+      }
+    }
+  end
+
 end
