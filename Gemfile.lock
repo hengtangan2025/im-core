@@ -69,12 +69,18 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
+    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     ffi (1.9.14)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -116,6 +122,8 @@ GEM
     mongoid (6.0.0)
       activemodel (~> 5.0)
       mongo (~> 2.3)
+    mongoid-tree (2.1.0)
+      mongoid (>= 4.0, < 7.0)
     multi_json (1.12.1)
     netrc (0.11.0)
     nio4r (1.2.1)
@@ -242,6 +250,8 @@ DEPENDENCIES
   browserify-rails
   byebug
   coffee-rails (~> 4.2)
+  database_cleaner (~> 1.5.3)
+  factory_girl_rails
   figaro (~> 1.1.1)
   font-awesome-sass
   haml
@@ -251,6 +261,7 @@ DEPENDENCIES
   mina (= 0.3.7)
   mina_util!
   mongoid (~> 6.0.0)
+  mongoid-tree (~> 2.1.0)
   non-stupid-digest-assets
   puma (~> 3.0)
   rails (~> 5.0.0)

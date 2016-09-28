@@ -55,6 +55,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ### 测试
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner', '~> 1.5.3'
 end
 
 
@@ -87,6 +89,7 @@ gem 'font-awesome-sass'
 gem "figaro", "~> 1.1.1"
 
 gem 'mongoid', "~> 6.0.0"
+gem 'mongoid-tree', "~> 2.1.0", :require => 'mongoid/tree'
 
 ### 以下是部署相关
 

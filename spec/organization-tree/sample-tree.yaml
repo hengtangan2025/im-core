@@ -1,0 +1,8 @@
+name: 总公司
+children:
+  - name: 北京分公司
+    children:
+      - name: 海淀区办事处
+      - name: 朝阳区办事处
+  - name: 上海分公司
+  - name: 广州分公司

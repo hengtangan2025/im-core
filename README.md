@@ -185,3 +185,14 @@ end
 Rails.application.config.assets.precompile += %w( libs.js )
 ```
 
+
+
+-----------------------
+
+
+
+## 参考资料
+
+### rspec 3.0 expect 写法
+
+https://www.relishapp.com/rspec/rspec-expectations/v/3-2/docs/built-in-matchers
