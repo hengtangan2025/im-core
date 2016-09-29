@@ -1,6 +1,6 @@
 class IndexController < ApplicationController
   def index
-    roots = OrganizationNode.roots.map { |x|
+    roots = (OrganizationNode.roots || []).map { |x|
       { 
         id: x.id.to_s, 
         name: x.name,
