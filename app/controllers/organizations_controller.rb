@@ -22,4 +22,13 @@ class OrganizationsController < ApplicationController
       tree_data: root.tree_data
     }
   end
+
+  def show
+    o = OrganizationNode.find(params[:id])
+
+    @component_name = 'OrganizationNodeShow'
+    @component_data = {
+      node_data: o.node_data
+    }
+  end
 end

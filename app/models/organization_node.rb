@@ -41,4 +41,21 @@ class OrganizationNode
     }
   end
 
+  def node_data
+    {
+      id: id.to_s,
+      name: name,
+      parent: parent.present? ? {
+        id: parent.id.to_s,
+        name: parent.name
+      } : nil,
+      children: (children || []).map { |c|
+        {
+          id: c.id.to_s,
+          name: c.name
+        }
+      }
+    }
+  end
+
 end

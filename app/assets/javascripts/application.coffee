@@ -11,3 +11,4 @@ window.AppLayout = require 'react/layouts/AppLayout'
 # components
 window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
 window.OrganizationTreePage = require 'app/OrganizationTreePage'
+window.OrganizationNodeShow = require 'app/OrganizationNodeShow'

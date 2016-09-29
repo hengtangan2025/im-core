@@ -54,7 +54,7 @@ describe OrganizationNode, :type => :model do
   end
 
   describe '数据包装' do
-    it '数据包装' do
+    it '树数据包装' do
       OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree.yaml')
       root = OrganizationNode.roots.first
       expect(root.name).to eq('总公司')
@@ -62,6 +62,16 @@ describe OrganizationNode, :type => :model do
 
       expect(tree_data[:name]).to eq('总公司')
       expect(tree_data[:children].map{ |x| x[:name] }).to match_array(['北京分公司', '上海分公司', '广州分公司'])
+    end
+
+    it '节点数据包装' do
+      OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree.yaml')
+      node = OrganizationNode.where(name: '北京分公司').first
+      node_data = node.node_data
+
+      expect(node_data[:name]).to eq('北京分公司')
+      expect(node_data[:parent][:name]).to eq('总公司')
+      expect(node_data[:children].count).to eq(2)
     end
   end
 end
