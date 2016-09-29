@@ -12,3 +12,5 @@ window.AppLayout = require 'react/layouts/AppLayout'
 window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
 window.OrganizationTreePage = require 'app/OrganizationTreePage'
 window.OrganizationNodeShow = require 'app/OrganizationNodeShow'
+
+window.ChatPage = require 'app/chat/ChatPage'
