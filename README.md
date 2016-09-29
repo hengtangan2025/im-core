@@ -187,6 +187,35 @@ Rails.application.config.assets.precompile += %w( libs.js )
 
 
 
+### 去除 active_record 依赖
+
+```shell
+# 生成不依赖数据库的工程
+rails new test-app -O
+```
+
+复制 application.rb 代码
+
+```ruby
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+# require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "action_cable/engine"
+require "sprockets/railtie"
+# require "rails/test_unit/railtie"
+```
+
+覆盖 config/environments 下三个文件，覆盖 config/initializers/new_framework_defaults.rb
+
+
+
+
+
 -----------------------
 
 
