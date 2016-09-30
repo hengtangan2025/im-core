@@ -74,4 +74,30 @@ describe OrganizationNode, :type => :model do
       expect(node_data[:children].count).to eq(2)
     end
   end
+
+  describe 'import yaml with members' do
+    before {
+      OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree-with-members.yaml')
+    }
+
+    it 'import yaml: organization_nodes' do
+      expect(OrganizationNode.count).to eq(6)
+
+      obj = OrganizationNode.where(name: '北京分公司').first
+      expect(obj.children.count).to eq(2)
+
+      ohd = OrganizationNode.where(name: '海淀区办事处').first
+      expect(ohd.leaf?).to be true
+    end
+
+    it 'import yaml: members' do
+      expect(Member.count).to eq(9)
+
+      expect(OrganizationNode.where(name: '总公司').first.members.map(&:name)).to match_array %w(刘备)
+      expect(OrganizationNode.where(name: '北京分公司').first.members.map(&:name)).to match_array %w(关羽 诸葛亮 关平)
+      expect(OrganizationNode.where(name: '海淀区办事处').first.members.map(&:name)).to match_array %w(姜维 关平)
+      expect(OrganizationNode.where(name: '上海分公司').first.members.map(&:name)).to match_array %w(张飞 庞统)
+      expect(OrganizationNode.where(name: '广州分公司').first.members.map(&:name)).to match_array %w(诸葛亮 赵云)
+    end
+  end
 end

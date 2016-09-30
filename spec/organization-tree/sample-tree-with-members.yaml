@@ -1,0 +1,46 @@
+# 001 刘备
+# 002 关羽
+# 003 张飞
+# 004 赵云
+# 005 关平
+# 006 关兴
+# 101 诸葛亮
+# 102 庞统
+# 103 姜维
+
+name: 总公司
+members:
+  - job_number: '001'
+    name: 刘备
+children:
+  - name: 北京分公司
+    members:
+      - job_number: '002'
+        name: 关羽
+      - job_number: '101'
+        name: 诸葛亮
+      - job_number: '005'
+        name: 关平
+    children:
+      - name: 海淀区办事处
+        members:
+        - job_number: '005'
+          name: 关平
+        - job_number: '103'
+          name: 姜维
+      - name: 朝阳区办事处
+        members:
+        - job_number: '006'
+          name: 关兴
+  - name: 上海分公司
+    members:
+      - job_number: '003'
+        name: 张飞
+      - job_number: '102'
+        name: 庞统
+  - name: 广州分公司
+    members:
+      - job_number: '004'
+        name: 赵云
+      - job_number: '101'
+        name: 诸葛亮

@@ -9,11 +9,17 @@ class OrganizationNode
 
   field :name, type: String
 
+  has_and_belongs_to_many :members
+
   class << self
     def from_yaml(yaml_string)
       data = YAML.load yaml_string
 
-      root = OrganizationNode.create(name: data['name'])
+      members = (data['members'] || []).map {|m|
+        Member.where(job_number: m['job_number']).first_or_create(name: m['name'])
+      }
+      root = OrganizationNode.create(name: data['name'], members: members)
+
       _from_yaml_r(root, data['children'])
     end
 
@@ -25,7 +31,12 @@ class OrganizationNode
       def _from_yaml_r(parent, children_data)
         return if children_data.blank?
         children_data.each do |child_data|
-          child = OrganizationNode.create(name: child_data['name'], parent: parent)
+
+          members = (child_data['members'] || []).map {|m|
+            Member.where(job_number: m['job_number']).first_or_create(name: m['name'])
+          }
+
+          child = OrganizationNode.create(name: child_data['name'], parent: parent, members: members)
           _from_yaml_r(child, child_data['children'])
         end
       end
