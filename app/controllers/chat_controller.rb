@@ -4,7 +4,7 @@ class ChatController < ApplicationController
 
     @component_name = 'ChatPage'
     @component_data = {
-      organization_tree: root.tree_data
+      organization_tree: root.tree_data_with_members
     }
   end
 end
