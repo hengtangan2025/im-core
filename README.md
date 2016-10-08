@@ -214,6 +214,17 @@ require "sprockets/railtie"
 
 
 
+### 设置 action_cable
+
+在 config/environments/development.rb 中添加
+
+```ruby
+  # Mount Action Cable outside main process or domain
+  config.action_cable.allowed_request_origins = [ /http:\/\/*/ ]
+```
+
+以去除访问的 IP 限制
+
 
 
 -----------------------
