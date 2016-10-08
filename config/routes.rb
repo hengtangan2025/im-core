@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   end
 
   get '/chat/:oid', to: 'chat#show', as: :chat
+
+  # 即时消息
+  mount ActionCable.server => '/cable'
 end

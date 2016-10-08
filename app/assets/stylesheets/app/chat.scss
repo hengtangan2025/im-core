@@ -38,4 +38,37 @@
       padding: 20px;
     }
   }
+
+  .chat-room {
+    $ipt-h: 120px;
+
+    .chat-list {
+      position: absolute;
+      left:$side-w;right:0;
+      bottom: $ipt-h;
+      height: 300px;
+      background-color: rgba(#ffffdc, 0.5);
+      padding: 20px;
+      border-top: solid 1px rgba(black, 0.04);
+    }
+
+    .chat-inputer {
+      position: absolute;
+      left:$side-w;right:0;bottom:0;
+      height: $ipt-h;
+      background-color: #FCFCFC;
+      border-top: solid 1px #FAFAFA;
+
+      textarea {
+        position: absolute;
+        top:0;left:0;right:0;bottom:0;
+        resize: none;
+        border: 0 none;
+        padding: 10px 20px;
+        width: 100%;
+        outline: none;
+        background-color: transparent;
+      }
+    }
+  }
 }

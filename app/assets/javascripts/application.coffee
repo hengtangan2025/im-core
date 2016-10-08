@@ -1,5 +1,6 @@
 # utils
 window.ClassName = require 'utils/ClassName'
+window.randstr = require 'utils/randstr'
 
 # http://fontawesome.io/icons/
 window.FaIcon = require 'utils/FaIcon'
