@@ -14,7 +14,6 @@ describe OrganizationNode, :type => :model do
   it 'factory girl' do
     o = create(:organization_node)
     expect(OrganizationNode.count).to eq(1)
-    expect(o.name).to eq('test-o-1')
   end
 
   it '添加下级机构' do
