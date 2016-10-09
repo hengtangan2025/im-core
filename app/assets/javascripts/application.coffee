@@ -14,4 +14,6 @@ window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
 window.OrganizationTreePage = require 'app/OrganizationTreePage'
 window.OrganizationNodeShow = require 'app/OrganizationNodeShow'
 
+window.ChatPageOrganizationTree = require 'app/chat/ChatPageOrganizationTree'
+window.ChatPageChatRoom = require 'app/chat/ChatPageChatRoom'
 window.ChatPage = require 'app/chat/ChatPage'
