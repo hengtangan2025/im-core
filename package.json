@@ -1,5 +1,5 @@
 {
-  "name": "bbn-weixin-reply",
+  "name": "im-core",
   "dependencies": {
     "browserify": "~> 10.2.4",
     "browserify-incremental": "^3.0.1",
