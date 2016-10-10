@@ -17,10 +17,6 @@ class OrganizationNode
       _create_with_members(data)
     end
 
-    def import_sample
-      OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree-with-members.yaml')
-    end
-
     private
       def _from_yaml_r(parent, children_data)
         (children_data || []).each do |child_data|

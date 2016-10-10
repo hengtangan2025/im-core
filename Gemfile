@@ -2,7 +2,7 @@ source 'https://gems.ruby-china.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -64,10 +64,7 @@ end
 group :development, :production do
   # https://github.com/reactjs/react-rails
   # 引入 reactjs
-  gem 'react-rails', '1.8.0'
-
-  # 允许 cjsx 语法
-  gem 'sprockets-coffee-react', '4.0.0'
+  gem 'react-rails', '~> 1.8.2'
 end
 
 # 修正 assets 的冗余 digest 问题
