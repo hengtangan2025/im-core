@@ -60,6 +60,9 @@ end
 
 ### 以下是自己添加的 gem
 
+# 用户验证
+
+gem 'devise', '~> 4.2.0'
 
 group :development, :production do
   # https://github.com/reactjs/react-rails

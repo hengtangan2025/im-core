@@ -4,9 +4,11 @@ module.exports = ChatPage = React.createClass
 
   render: ->
     ChatRoom = ChatPageChatRoom
+    CurrentUser = ChatPageCurrentUser
 
     <div className='chat-page'>
       <Sidebar {...@props} select_node={@select_node} />
+      <CurrentUser />
       {
         if @state.selected_node.members
           <MembersTable node={@state.selected_node} />

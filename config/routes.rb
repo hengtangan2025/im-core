@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  get '/', to: 'index#index'
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  root to: 'index#index'
 
   resources :organizations do
     get :trees, on: :collection

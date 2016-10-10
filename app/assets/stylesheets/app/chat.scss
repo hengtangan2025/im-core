@@ -1,11 +1,25 @@
 $online-color: #82C458;
 
+@mixin avatar {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 8px; left: 8px;
+  color: white;
+  background-color: #4B8BF5;
+  border-radius: 100%;
+}
+
 .chat-page {
   position: absolute;
   top:0;left:0;right:0;bottom:0;
   background-color: #fff;
 
   $side-w: 230px;
+  $current-user-bar-w: 50px;
 
   .sidebar {
     background-color: #F5F7FA;
@@ -31,9 +45,32 @@ $online-color: #82C458;
     }
   }
 
+  .current-user-bar {
+    position: absolute;
+    top:0;bottom:0;right:0;width: $current-user-bar-w;
+    background-color: #fff;
+    border-left: solid 2px #FAFAFA;
+
+    .avatar-first-char {
+      @include avatar;
+    }
+
+    .sign-out-link {
+      height:48px;line-height:48px;
+      text-align: center;
+      font-size: 16px;
+      margin-top: 16px;
+      display: block;
+      color: #444;
+      &:hover {
+        background-color: #ffffdc;
+      }
+    }
+  }
+
   .members-table {
     position: absolute;
-    top:0;right:0;bottom:0;left:$side-w;
+    top:0;right:$current-user-bar-w;bottom:0;left:$side-w;
 
     .header {
       height: 48px;
@@ -49,7 +86,7 @@ $online-color: #82C458;
 
   .chat-room {
     position: absolute;
-    top:0;right:0;bottom:0;left:$side-w;
+    top:0;right:$current-user-bar-w;bottom:0;left:$side-w;
 
     $ipt-h: 120px;
     $header-h: 48px;

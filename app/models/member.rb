@@ -6,4 +6,5 @@ class Member
   field :job_number, type: String
 
   has_and_belongs_to_many :organization_nodes
+  belongs_to :user
 end
