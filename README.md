@@ -293,3 +293,8 @@ npm run dist
 ### rspec 3.0 expect 写法
 
 https://www.relishapp.com/rspec/rspec-expectations/v/3-2/docs/built-in-matchers
+
+
+
+### action cable & active job 配置
+

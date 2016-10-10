@@ -5,7 +5,7 @@ module.exports = ChatRoom = React.createClass
     <div className='chat-room'>
       <Header {...@props} />
       <ChatList {...@props} />
-      <ChatInputer />
+      <ChatInputer {...@props} />
     </div>
 
 Header = React.createClass
@@ -76,8 +76,28 @@ ChatInputer = React.createClass
   keydown: (evt)->
     if evt.which is 13
       evt.preventDefault()
-      if @state.text != ''
-        App.room.speak {
-          text: @state.text
-        }
-        @setState text: ''
+      @speak()
+
+  speak: ->
+    return if jQuery.trim(@state.text) == ''
+
+    if @props.with_member
+      room = {
+        type: 'Single'
+        id: @props.with_member.id
+      }
+
+    if @props.with_org
+      room = {
+        type: 'Organization'
+        id: room_id = @props.with_org.id
+      }
+
+    data = {
+      text: @state.text
+      room: room
+    }
+    @setState text: ''
+
+    App.room.speak data
+    
