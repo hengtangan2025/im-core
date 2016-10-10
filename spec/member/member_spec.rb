@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Member, :type => :model do
   it 'create member and relation to organization_node' do
-    Member.create(name: 'ben7th', organization_nodes: [create(:organization_node)])
+    Member.create(name: 'ben7th', organization_nodes: [create(:organization_node)], user: create(:user))
 
     m = Member.where(name: 'ben7th').first
     o = OrganizationNode.last
@@ -12,7 +12,7 @@ describe Member, :type => :model do
   end
 
   it 'job_number' do
-    Member.create(name: 'ben7th', job_number: '03281106')
+    Member.create(name: 'ben7th', job_number: '03281106', user: create(:user))
     expect(Member.last.job_number).to eq('03281106')
   end
 end

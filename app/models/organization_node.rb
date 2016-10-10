@@ -24,9 +24,20 @@ class OrganizationNode
         end
       end
 
-      def _create_with_members(data, parent = nil)
+      def _create_with_members(data, parent = nil, default_password = '123456')
         members = (data['members'] || []).map { |m|
-          Member.where(job_number: m['job_number']).first_or_create(name: m['name'])
+          job_number = m['job_number']
+          name = m['name']
+          user_login = "user-#{job_number}"
+
+          Member.where(job_number: job_number).first_or_create({
+            name: name,
+            user: User.create({
+              email: "#{user_login}@test.com",
+              login: user_login,
+              password: default_password
+            })
+          })
         }
         node = OrganizationNode.create(name: data['name'], members: members, parent: parent)
         _from_yaml_r(node, data['children'])

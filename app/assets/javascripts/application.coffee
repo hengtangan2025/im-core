@@ -16,4 +16,5 @@ window.OrganizationNodeShow = require 'app/OrganizationNodeShow'
 
 window.ChatPageOrganizationTree = require 'app/chat/ChatPageOrganizationTree'
 window.ChatPageChatRoom = require 'app/chat/ChatPageChatRoom'
+window.ChatPageCurrentUser = require 'app/chat/ChatPageCurrentUser'
 window.ChatPage = require 'app/chat/ChatPage'
