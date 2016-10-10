@@ -11,7 +11,7 @@ module.exports = ChatPage = React.createClass
       <CurrentUser />
       {
         if @state.selected_node.members
-          <MembersTable node={@state.selected_node} />
+          <ChatRoom with_org={@state.selected_node} />
         else
           <ChatRoom with_member={@state.selected_node} />
       }

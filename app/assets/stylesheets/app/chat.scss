@@ -96,8 +96,18 @@ $online-color: #82C458;
       line-height: $header-h;
       background-color: #FAFAFA;
       padding:0 20px;
-      font-weight: bold;
-      i {color: $online-color;margin-right: 10px;}
+      position: relative;
+
+      span.info {font-weight: bold;}
+
+      span.member-info i {color: $online-color; margin-right: 10px;}
+      span.org-info i {margin-right: 10px;}
+
+      .members {
+        position: absolute;
+        top: 0;right:20px;bottom:0;width: 48px;
+        text-align: center;
+      }
     }
 
     .chat-list {

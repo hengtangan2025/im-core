@@ -1,14 +1,26 @@
-{ Alert } = antd
+{ Alert, Icon } = antd
 
 module.exports = ChatRoom = React.createClass
   render: ->
     <div className='chat-room'>
-      <div className='header'>
-        <FaIcon type='user' /> {@props.with_member.name}
-      </div>
-      <ChatList with_member={@props.with_member} />
+      <Header {...@props} />
+      <ChatList {...@props} />
       <ChatInputer />
     </div>
+
+Header = React.createClass
+  render: ->
+    if @props.with_member
+      <div className='header'>
+        <span className='info member-info'><FaIcon type='user' /> {@props.with_member.name}</span>
+      </div>
+    else if @props.with_org
+      <div className='header'>
+        <span className='info org-info'><FaIcon type='circle-o' /> {@props.with_org.name}</span>
+        <div className='members'>
+          <Icon type='team' /> {@props.with_org.members.length}
+        </div>
+      </div>
 
 ChatList = React.createClass
   getInitialState: ->
@@ -16,7 +28,12 @@ ChatList = React.createClass
 
   render: ->
     <div className='chat-list'>
-      <Alert message="你正在和 @#{@props.with_member.name} 聊天" type="info" />
+      {
+        if @props.with_member
+          <Alert message="你正在和 @#{@props.with_member.name} 单聊" type="info" />
+        else if @props.with_org
+          <Alert message="你正在组织机构 @#{@props.with_org.name} 中群聊" type="info" />
+      }
       {
         for message, idx in @state.messages
           <div key={idx} className='chat-item'>

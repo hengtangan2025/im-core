@@ -6,7 +6,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     # Called when the subscription has been terminated by the server
 
   received: (message) ->
-    # alert data['message']
     jQuery(document).trigger 'received-message', message
 
   speak: (message)->
