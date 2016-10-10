@@ -1,21 +1,13 @@
 { Alert } = antd
 
 module.exports = ChatRoom = React.createClass
-  getInitialState: ->
-    talker_name = localStorage['chatter_name'] || "访客-#{randstr()}"
-    localStorage['chatter_name'] = talker_name
-
-    talker: {
-      name: talker_name
-    }
-
   render: ->
     <div className='chat-room'>
       <div className='header'>
         <FaIcon type='user' /> {@props.with_member.name}
       </div>
       <ChatList with_member={@props.with_member} />
-      <ChatInputer talker={@state.talker} />
+      <ChatInputer />
     </div>
 
 ChatList = React.createClass
@@ -27,8 +19,11 @@ ChatList = React.createClass
       <Alert message="你正在和 @#{@props.with_member.name} 聊天" type="info" />
       {
         for message, idx in @state.messages
-          <div key={idx}>
-            <strong>{message.talker.name}: </strong>
+          <div key={idx} className='chat-item'>
+            <strong>
+              <span>{message.talker.name} </span>
+              <span>[{new Date(message.time).format('hh:mm:ss')}]: </span>
+            </strong>
             <span>{message.text}</span>
           </div>
       }
@@ -38,6 +33,7 @@ ChatList = React.createClass
     jQuery(document)
       .off 'received-message'
       .on 'received-message', (evt, data)=>
+        console.log 'received', data
         messages = @state.messages
         messages.push data
         @setState messages: messages
@@ -66,6 +62,5 @@ ChatInputer = React.createClass
       if @state.text != ''
         App.room.speak {
           text: @state.text
-          talker: @props.talker
         }
         @setState text: ''

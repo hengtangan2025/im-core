@@ -108,6 +108,10 @@ $online-color: #82C458;
       background-color: #fff;
       padding: 20px;
       border-top: solid 1px rgba(black, 0.04);
+
+      .chat-item {
+        margin-bottom: 0.5rem;
+      }
     }
 
     .chat-inputer {

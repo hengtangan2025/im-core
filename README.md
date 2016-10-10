@@ -227,6 +227,44 @@ require "sprockets/railtie"
 
 
 
+### 为 action_cable 增加验证
+
+```ruby
+# app/config/initializers/warden_hooks.rb
+Warden::Manager.after_set_user do |user, auth, opts|
+  scope = opts[:scope]
+  auth.cookies.signed["#{scope}.id"] = user.id.to_s
+end
+```
+
+
+
+```ruby
+module ApplicationCable
+  class Connection < ActionCable::Connection::Base
+    identified_by :current_user
+
+    def connect
+      self.current_user = find_verified_user
+      logger.add_tags 'ActionCable', current_user.login
+    end
+
+    protected
+      def find_verified_user
+        if verified_user = User.find_by(id: cookies.signed['user.id'])
+          verified_user
+        else
+          reject_unauthorized_connection
+        end
+      end
+  end
+end
+```
+
+参考：http://www.rubytutorial.io/actioncable-devise-authentication/
+
+
+
 -----------------------
 
 

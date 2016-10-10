@@ -11,6 +11,5 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   speak: (message)->
     @perform 'speak', {
-      talker: message.talker
       text: message.text
     }

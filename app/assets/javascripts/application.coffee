@@ -5,6 +5,10 @@ window.randstr = require 'utils/randstr'
 # http://fontawesome.io/icons/
 window.FaIcon = require 'utils/FaIcon'
 
+format_date = require 'utils/format_date'
+Date.prototype.format = (str)-> format_date(this, str)
+
+
 # # layouts
 window.YieldComponent = require 'react/layouts/YieldComponent'
 window.AppLayout = require 'react/layouts/AppLayout'

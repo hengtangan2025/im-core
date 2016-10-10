@@ -9,6 +9,20 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(message)
-    ActionCable.server.broadcast 'room_channel', message
+    # message = {
+    #   text: '......',
+    # }
+
+    data = {
+      time: Time.now,
+      text: message['text'],
+      talker: {
+        id: current_user.id.to_s,
+        email: current_user.email,
+        name: current_user.member.name
+      }
+    }
+
+    ActionCable.server.broadcast 'room_channel', data
   end
 end
