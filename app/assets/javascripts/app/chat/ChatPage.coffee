@@ -3,14 +3,23 @@ module.exports = ChatPage = React.createClass
     selected_node: @props.organization_tree
 
   render: ->
+    ChatRoom = ChatPageChatRoom
+
     <div className='chat-page'>
       <Sidebar {...@props} select_node={@select_node} />
-      <MembersTable node={@state.selected_node} />
-      <ChatRoom />
+      {
+        if @state.selected_node.members
+          <MembersTable node={@state.selected_node} />
+        else
+          <ChatRoom with_member={@state.selected_node} />
+      }
     </div>
 
   select_node: (node)->
+    console.log node
     @setState selected_node: node
+
+OrganizationTree = ChatPageOrganizationTree
 
 Sidebar = React.createClass
   render: ->
@@ -18,35 +27,6 @@ Sidebar = React.createClass
       <div className='header'>示例组织机构</div>
       <OrganizationTree data={@props.organization_tree}  select_node={@props.select_node} />
     </div>
-
-{ Tree } = antd
-TreeNode = Tree.TreeNode
-
-OrganizationTree = React.createClass
-  render: ->
-    root = @props.data
-
-    <div className='org-tree'>
-      <Tree 
-        defaultExpandAll
-        defaultSelectedKeys={[root.id]}
-        onSelect={@select_node}
-      >
-        <TreeNode title={root.name} key={root.id} org={root}>
-        {@subtree(root.children) if root.children.length}
-        </TreeNode>
-      </Tree>
-    </div>
-
-  subtree: (children)->
-    for child in children
-      <TreeNode title={child.name} key={child.id} org={child}>
-      {@subtree(child.children) if child.children.length}
-      </TreeNode>
-
-  select_node: (selected_keys, evt)->
-    node = evt.node.props.org
-    @props.select_node(node)
 
 
 { Table } = antd
@@ -74,70 +54,3 @@ MembersTable = React.createClass
         <Table bordered size='middle' dataSource={data_source} columns={columns} rowKey="job_number" />
       </div>
     </div>
-
-
-ChatRoom = React.createClass
-  getInitialState: ->
-    talker_name = localStorage['chatter_name'] || "访客-#{randstr()}"
-    localStorage['chatter_name'] = talker_name
-
-    talker: {
-      name: talker_name
-    }
-
-  render: ->
-    <div className='chat-room'>
-      <ChatList />
-      <ChatInputer talker={@state.talker} />
-    </div>
-
-ChatList = React.createClass
-  getInitialState: ->
-    messages: []
-
-  render: ->
-    <div className='chat-list'>
-    {
-      for message, idx in @state.messages
-        <div key={idx}>
-          <strong>{message.talker.name}: </strong>
-          <span>{message.text}</span>
-        </div>
-    }
-    </div>
-
-  componentDidMount: ->
-    jQuery(document)
-      .off 'received-message'
-      .on 'received-message', (evt, data)=>
-        messages = @state.messages
-        messages.push data
-        @setState messages: messages
-
-
-ChatInputer = React.createClass
-  getInitialState: ->
-    text: ''
-
-  render: ->
-    <div className='chat-inputer'>
-      <textarea 
-        placeholder='在这里说话~' 
-        value={@state.text} 
-        onChange={@change} 
-        onKeyDown={@keydown}
-      />
-    </div>
-
-  change: (evt)->
-    @setState text: evt.target.value
-
-  keydown: (evt)->
-    if evt.which is 13
-      evt.preventDefault()
-      if @state.text != ''
-        App.room.speak {
-          text: @state.text
-          talker: @props.talker
-        }
-        @setState text: ''
