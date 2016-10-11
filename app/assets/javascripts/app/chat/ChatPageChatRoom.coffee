@@ -2,7 +2,9 @@
 
 module.exports = ChatRoom = React.createClass
   render: ->
-    <div className='chat-room'>
+    key = (@props.with_member || @props.with_org).id
+
+    <div className='chat-room' key={key}>
       <Header {...@props} />
       <ChatList {...@props} />
       <ChatInputer {...@props} />
@@ -108,15 +110,15 @@ ChatInputer = React.createClass
   speak: ->
     return if jQuery.trim(@state.text) == ''
 
-    content = {
-      text: @state.text
-    }
+    content = { text: @state.text }
     @setState text: ''
 
+    # 单聊
     if @props.with_member
       receiver_id = @props.with_member.id
       App.room.speak_single receiver_id, content
 
+    # 机构群聊
     if @props.with_org
       org_id = @props.with_org.id
       App.room.speak_organization org_id, content
