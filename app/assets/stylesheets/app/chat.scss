@@ -149,6 +149,7 @@ $online-color: #82C458;
           .talker .time {font-size: 13px; color:#ccc;}
           .text {
             line-height: 26px;
+            word-break: break-all;
           }
         }
       }

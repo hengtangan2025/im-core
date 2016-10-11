@@ -23,5 +23,13 @@ class ChatMessage
         content: content
       })
     end
+
+    def create_organization(sender, organization, content)
+      create({
+        member: sender,
+        room: ChatRoom.build_organization(sender, organization).data,
+        content: content
+      })
+    end
   end
 end

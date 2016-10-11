@@ -117,9 +117,6 @@ ChatInputer = React.createClass
       receiver_id = @props.with_member.id
       App.room.speak_single receiver_id, content
 
-    # if @props.with_org
-    #   room = {
-    #     type: 'Organization'
-    #     id: room_id = @props.with_org.id
-    #   }
-    
+    if @props.with_org
+      org_id = @props.with_org.id
+      App.room.speak_organization org_id, content

@@ -29,4 +29,30 @@ describe ChatMessage, :type => :model do
       expect(cm.receivers).to match_array [@sender, @receiver]
     end
   end
+
+  describe '组织机构群聊' do
+    before {
+      @sender = create(:member)
+      @u2 = create(:member)
+      @u3 = create(:member)
+
+      @org = create(:organization_node, members: [@sender, @u2, @u3])
+    }
+
+    it '获取收信人' do
+      cm = ChatMessage.create_organization(@sender, @org, {
+        text: 'hello!'
+      })
+      expect(cm.receivers).to match_array [@sender, @u2, @u3]
+    end
+
+    it '不在组织里的人发信息' do
+      @another = create(:member)
+
+      cm = ChatMessage.create_organization(@another, @org, {
+        text: 'hello!'
+      })
+      expect(cm.receivers).to match_array [@sender, @u2, @u3, @another]
+    end
+  end
 end

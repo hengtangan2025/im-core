@@ -31,4 +31,20 @@ class RoomChannel < ApplicationCable::Channel
 
     ChatMessage.create_single(sender, receiver, content)
   end
+
+  # 组织机构群聊
+  def speak_organization(data)
+    logger.info data
+
+    sender = current_user.member
+    logger.info sender
+
+    organization = OrganizationNode.find(data['organization_id'])
+    logger.info organization
+
+    content = data['content']
+    logger.info content
+
+    ChatMessage.create_organization(sender, organization, content)
+  end
 end
