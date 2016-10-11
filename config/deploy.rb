@@ -13,7 +13,7 @@ set :repository, 'https://github.com/fushang318/im-core.git'
 set :branch, 'deploy'
 set :user, 'root'
 set :term_mode, nil
-set :sidekiq_pid, -> { "#{fetch(:shared_path)}/tmp/pids/sidekiq.pid" }
+set :sidekiq_pid, lambda { "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid" }
 
 set :shared_paths, [
   'config/mongoid.yml',
@@ -31,6 +31,9 @@ task :environment do
 
   # For those using RVM, use this to load an RVM version@gemset.
   # invoke :'rvm:use[ruby-1.9.3-p125@default]'
+  queue! %[which bundle]
+  queue! %[which sidekiq]
+  "#{fetch(:shared_path)}/tmp/pids/sidekiq.pid"
 end
 
 task :setup => :environment do
