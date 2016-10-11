@@ -8,15 +8,17 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   received: (message) ->
     jQuery(document).trigger 'received-message', message
 
-  # 示例：
-  # data = {
-  #   text: '...'
-  #   room: {
-  #     type: '...', # Single, Organization, Group
-  #     id: '....'
-  #   }
+
+  # content = {
+  #   text: '.......'
   # }
 
-  speak: (data)->
-    console.debug 'speak', data
-    @perform 'speak', data
+  # 发送单聊消息
+  speak_single: (receiver_id, content)->
+    data = {
+      receiver_id: receiver_id
+      content: content
+    }
+
+    console.log 'speak_single', data
+    @perform 'speak_single', data
