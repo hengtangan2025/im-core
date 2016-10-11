@@ -10,6 +10,7 @@ class ChatMessage
     user = self.member.user
 
     data = {
+      id: self.id.to_s,
       time: self.created_at.to_s,
       text: self.data['text'],
       room: self.data['room'],

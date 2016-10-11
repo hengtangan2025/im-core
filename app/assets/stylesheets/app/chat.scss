@@ -9,8 +9,21 @@ $online-color: #82C458;
   position: relative;
   top: 8px; left: 8px;
   color: white;
-  background-color: #4B8BF5;
   border-radius: 100%;
+}
+
+@mixin avatar_a {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  color: white;
+  border-radius: 100%;
+  float: left;
+  font-size: 16px;
+  top: 2px;
 }
 
 .chat-page {
@@ -119,8 +132,25 @@ $online-color: #82C458;
       padding: 20px;
       border-top: solid 1px rgba(black, 0.04);
 
+      .channel-info {
+        margin-bottom: 20px;
+      }
+
       .chat-item {
-        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+        min-height: 48px;
+
+        .avatar-first-char {
+          @include avatar_a;
+        }
+        .m-content {
+          margin-left: 48px;
+          .talker .name {font-weight: bold;margin-right: 12px;}
+          .talker .time {font-size: 13px; color:#ccc;}
+          .text {
+            line-height: 26px;
+          }
+        }
       }
     }
 

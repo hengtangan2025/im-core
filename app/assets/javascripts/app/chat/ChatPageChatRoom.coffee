@@ -28,21 +28,17 @@ ChatList = React.createClass
 
   render: ->
     <div className='chat-list'>
+      <div className='channel-info'>
       {
         if @props.with_member
           <Alert message="你正在和 @#{@props.with_member.name} 单聊" type="info" />
         else if @props.with_org
           <Alert message="你正在组织机构 @#{@props.with_org.name} 中群聊" type="info" />
       }
+      </div>
       {
-        for message, idx in @state.messages
-          <div key={idx} className='chat-item'>
-            <strong>
-              <span>{message.talker.name} </span>
-              <span>[{new Date(message.time).format('hh:mm:ss')}]: </span>
-            </strong>
-            <span>{message.text}</span>
-          </div>
+        for message in @state.messages
+          <ChatItem key={message.id} message={message} />
       }
     </div>
 
@@ -54,6 +50,25 @@ ChatList = React.createClass
         messages = @state.messages
         messages.push data
         @setState messages: messages
+
+
+ChatItem = React.createClass
+  render: ->
+    message = @props.message
+    astyle = {
+      backgroundColor: color20(message.talker.member_id)
+    }
+
+    <div key={message.id} className='chat-item'>
+      <div className='avatar-first-char' style={astyle}>{message.talker.name[0]}</div>
+      <div className='m-content'>
+        <div className='talker'>
+          <span className='name'>{message.talker.name}</span>
+          <span className='time'>{new Date(message.time).format('hh:mm:ss')}</span>
+        </div>
+        <div className='text'>{message.text}</div>
+      </div>
+    </div>
 
 
 ChatInputer = React.createClass
