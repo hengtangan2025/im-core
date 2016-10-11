@@ -28,15 +28,7 @@ class MessageBroadcastJob < ApplicationJob
     #   }
     # }
 
-    data = {
-      id: message.id.to_s,
-      time: message.created_at.to_s,
-      talker: {
-        member_id: message.member.id.to_s,
-        name: message.member.name
-      },
-      content: message.content
-    }
+    data = message.client_data
 
     channels.each do |cname|
       ActionCable.server.broadcast cname, data

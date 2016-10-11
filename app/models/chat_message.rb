@@ -15,6 +15,19 @@ class ChatMessage
     ChatRoom.new(self.room).receivers
   end
 
+  def client_data
+    {
+      id: self.id.to_s,
+      time: self.created_at.to_s,
+      talker: {
+        member_id: self.member.id.to_s,
+        name: self.member.name
+      },
+      room: self.room,
+      content: self.content
+    }
+  end
+
   class << self
     def create_single(sender, receiver, content)
       create({

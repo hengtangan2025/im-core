@@ -1,6 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  # 即时消息
+  mount ActionCable.server => '/cable'
+
+  # 队列
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users, controllers: { 
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -13,14 +19,9 @@ Rails.application.routes.draw do
     get :show_tree, on: :member
   end
 
+  resources :chat_messages do
+    get :history, on: :collection
+  end
+
   get '/chat/:oid', to: 'chat#show', as: :chat
-
-  # 即时消息
-  mount ActionCable.server => '/cable'
-
-  # sidekiq web ui
-  # constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-  #   mount Sidekiq::Web, at: '/sidekiq'
-  # end
-  mount Sidekiq::Web => '/sidekiq'
 end

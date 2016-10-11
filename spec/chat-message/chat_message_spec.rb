@@ -16,6 +16,28 @@ describe ChatMessage, :type => :model do
     expect(ChatMessage.count).to eq 1
   end
 
+  describe '前端数据包装' do
+    it 'client_data' do
+      sender = create(:member)
+      receiver = create(:member)
+
+      message = ChatMessage.create_single(sender, receiver, {
+        text: 'hello!'
+      })
+
+      expect(message.client_data).to eq({
+        id: message.id.to_s,
+        time: message.created_at.to_s,
+        talker: {
+          member_id: message.member.id.to_s,
+          name: message.member.name
+        },
+        room: message.room,
+        content: message.content
+      })
+    end
+  end
+
   describe '单聊' do
     before {
       @sender   = create(:member)
