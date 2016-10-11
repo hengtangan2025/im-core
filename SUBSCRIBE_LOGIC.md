@@ -20,6 +20,21 @@ room_key = sender_id
 receivers = [receiver]
 ```
 
+客户端消息包装：
+
+```coffeescript
+# 消息发送者不传，在服务端获取认证信息
+App.room.speak {
+  room: {
+  	type: 'SINGLE'
+    key: '...' # ChatRoom.get_single_key(sender, receiver)
+  }
+  content: {
+    text: '...'
+  }
+}
+```
+
 
 
 #### 机构聊天消息广播
@@ -31,6 +46,21 @@ room_key = org.id
 receivers = org.nested_members # 组织机构的全部成员
 ```
 
+客户端消息包装：
+
+```coffeescript
+# 消息发送者不传，在服务端获取认证信息
+App.room.speak {
+  room: {
+  	type: 'ORGANIZATION'
+    key: '...'
+  }
+  content: {
+    text: '...'
+  }
+}
+```
+
 
 
 #### 群组聊天消息广播
@@ -40,5 +70,20 @@ receivers = org.nested_members # 组织机构的全部成员
 room_key = group.id
 # 接收者清单
 receivers = group.members
+```
+
+客户端消息包装：
+
+```coffeescript
+# 消息发送者不传，在服务端获取认证信息
+App.room.speak {
+  room: {
+  	type: 'GROUP'
+    key: '...'
+  }
+  content: {
+    text: '...'
+  }
+}
 ```
 

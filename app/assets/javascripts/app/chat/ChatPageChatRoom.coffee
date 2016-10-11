@@ -54,6 +54,18 @@ ChatList = React.createClass
 
 ChatItem = React.createClass
   render: ->
+    # message = {
+    #   id: '...'
+    #   time: '...'
+    #   talker: {
+    #     member_id: '...'
+    #     name: '...'
+    #   }
+    #   content: {
+    #     text: '...'
+    #   }
+    # }
+
     message = @props.message
     astyle = {
       backgroundColor: color20(message.talker.member_id)
@@ -66,7 +78,7 @@ ChatItem = React.createClass
           <span className='name'>{message.talker.name}</span>
           <span className='time'>{new Date(message.time).format('hh:mm:ss')}</span>
         </div>
-        <div className='text'>{message.text}</div>
+        <div className='text'>{message.content.text}</div>
       </div>
     </div>
 
@@ -96,23 +108,18 @@ ChatInputer = React.createClass
   speak: ->
     return if jQuery.trim(@state.text) == ''
 
-    if @props.with_member
-      room = {
-        type: 'Single'
-        id: @props.with_member.id
-      }
-
-    if @props.with_org
-      room = {
-        type: 'Organization'
-        id: room_id = @props.with_org.id
-      }
-
-    data = {
+    content = {
       text: @state.text
-      room: room
     }
     @setState text: ''
 
-    App.room.speak data
+    if @props.with_member
+      receiver_id = @props.with_member.id
+      App.room.speak_single receiver_id, content
+
+    # if @props.with_org
+    #   room = {
+    #     type: 'Organization'
+    #     id: room_id = @props.with_org.id
+    #   }
     

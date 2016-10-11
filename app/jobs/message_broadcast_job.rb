@@ -1,21 +1,42 @@
 class MessageBroadcastJob < ApplicationJob
   queue_as :default
 
-  # 根据 room.type 确定接收者
+  # 根据 message 确定接收者
   # 每个接收者一个频道
-  def perform(data)
-    logger.info data
+  def perform(message_data)
+    logger.info message_data
 
-    room = data[:room]
-    room_id = room['id']
+    message = ChatMessage.find(message_data[:message_id])
+    receivers = message.receivers
 
-    channels = ['member_channel']
+    channels = receivers.map { |x|
+      "member_channel_#{x.id}"
+    }
 
-    if room['type'] == 'Single'
-      talker_member_id = data[:talker][:member_id]
+    logger.info channels
 
-      channels = ["member_channel_#{room_id}", "member_channel_#{talker_member_id}"].uniq
-    end
+    # 数据包装格式
+    # message = {
+    #   id: '...'
+    #   time: '...'
+    #   talker: {
+    #     member_id: '...'
+    #     name: '...'
+    #   }
+    #   content: {
+    #     text: '...'
+    #   }
+    # }
+
+    data = {
+      id: message.id.to_s,
+      time: message.created_at.to_s,
+      talker: {
+        member_id: message.member.id.to_s,
+        name: message.member.name
+      },
+      content: message.content
+    }
 
     channels.each do |cname|
       ActionCable.server.broadcast cname, data
