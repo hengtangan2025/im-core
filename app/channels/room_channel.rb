@@ -9,23 +9,42 @@ class RoomChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  """
-    示例：
-    data = {
-      text: '...'
-      room: {
-        type: '...', # Single, Organization, Group
-        id: '....'
-      }
-    }
-  """
+  # content = {
+  #   text: '.......'
+  # }
 
   # 通过模型 after_create 回调
   # 交由 MessageBroadcastJob 处理广播
-  def speak(data)
-    ChatMessage.create!({
-      member: current_user.member,
-      data: data
-    })
+
+  # 单聊
+  def speak_single(data)
+    logger.info data
+
+    sender = current_user.member
+    logger.info sender
+
+    receiver = Member.find(data['receiver_id'])
+    logger.info receiver
+
+    content = data['content']
+    logger.info content
+
+    ChatMessage.create_single(sender, receiver, content)
+  end
+
+  # 组织机构群聊
+  def speak_organization(data)
+    logger.info data
+
+    sender = current_user.member
+    logger.info sender
+
+    organization = OrganizationNode.find(data['organization_id'])
+    logger.info organization
+
+    content = data['content']
+    logger.info content
+
+    ChatMessage.create_organization(sender, organization, content)
   end
 end

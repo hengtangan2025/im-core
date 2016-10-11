@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { 
     sessions: 'users/sessions',
@@ -15,4 +17,10 @@ Rails.application.routes.draw do
 
   # 即时消息
   mount ActionCable.server => '/cable'
+
+  # sidekiq web ui
+  # constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
+  #   mount Sidekiq::Web, at: '/sidekiq'
+  # end
+  mount Sidekiq::Web => '/sidekiq'
 end

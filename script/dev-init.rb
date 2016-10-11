@@ -6,5 +6,8 @@ OrganizationNode.destroy_all
 Member.destroy_all
 User.destroy_all
 
+p '清空历史消息'
+ChatMessage.destroy_all
+
 p '导入示例组织机构和成员，以及对应用户'
 OrganizationNode.from_yaml File.read File.join(Rails.root, 'spec', 'organization-tree', 'sample-tree-with-members.yaml')

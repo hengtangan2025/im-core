@@ -8,7 +8,11 @@ module.exports = ChatPageCurrentUser = React.createClass
 Avatar = React.createClass
   render: ->
     current_user = window.current_user
-    <div className='avatar-first-char'>{current_user.name[0]}</div>
+    astyle = {
+      backgroundColor: color20(current_user.member_id)
+    }
+
+    <div className='avatar-first-char' style={astyle}>{current_user.name[0]}</div>
 
 Signout = React.createClass
   render: ->

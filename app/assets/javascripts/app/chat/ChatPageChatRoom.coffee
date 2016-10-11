@@ -1,8 +1,10 @@
-{ Alert, Icon } = antd
+{ Alert, Icon, Spin } = antd
 
 module.exports = ChatRoom = React.createClass
   render: ->
-    <div className='chat-room'>
+    key = (@props.with_member || @props.with_org).id
+
+    <div className='chat-room' key={key}>
       <Header {...@props} />
       <ChatList {...@props} />
       <ChatInputer {...@props} />
@@ -24,29 +26,35 @@ Header = React.createClass
 
 ChatList = React.createClass
   getInitialState: ->
+    loading: true # 读取历史信息
     messages: []
 
   render: ->
     <div className='chat-list'>
+      {@cinfo()}
+      <div className='messages'>
+      {
+        for message in @state.messages
+          <ChatItem key={message.id} message={message} />
+      }
+      </div>
+    </div>
+
+  cinfo: ->
+    <div className='channel-info'>
+      <Spin size='large' spinning={@state.loading}>
       {
         if @props.with_member
           <Alert message="你正在和 @#{@props.with_member.name} 单聊" type="info" />
         else if @props.with_org
           <Alert message="你正在组织机构 @#{@props.with_org.name} 中群聊" type="info" />
       }
-      {
-        for message, idx in @state.messages
-          <div key={idx} className='chat-item'>
-            <strong>
-              <span>{message.talker.name} </span>
-              <span>[{new Date(message.time).format('hh:mm:ss')}]: </span>
-            </strong>
-            <span>{message.text}</span>
-          </div>
-      }
+      </Spin>
     </div>
 
   componentDidMount: ->
+    @load_history_messages()
+
     jQuery(document)
       .off 'received-message'
       .on 'received-message', (evt, data)=>
@@ -54,6 +62,45 @@ ChatList = React.createClass
         messages = @state.messages
         messages.push data
         @setState messages: messages
+
+  load_history_messages: ->
+    @setState loading: false
+    # jQuery.ajax
+    #   type: 'GET'
+    #   url: @props.history_messages_url
+    # .done (res)->
+    #   console.log res
+
+
+ChatItem = React.createClass
+  render: ->
+    # message = {
+    #   id: '...'
+    #   time: '...'
+    #   talker: {
+    #     member_id: '...'
+    #     name: '...'
+    #   }
+    #   content: {
+    #     text: '...'
+    #   }
+    # }
+
+    message = @props.message
+    astyle = {
+      backgroundColor: color20(message.talker.member_id)
+    }
+
+    <div key={message.id} className='chat-item'>
+      <div className='avatar-first-char' style={astyle}>{message.talker.name[0]}</div>
+      <div className='m-content'>
+        <div className='talker'>
+          <span className='name'>{message.talker.name}</span>
+          <span className='time'>{new Date(message.time).format('hh:mm:ss')}</span>
+        </div>
+        <div className='text'>{message.content.text}</div>
+      </div>
+    </div>
 
 
 ChatInputer = React.createClass
@@ -81,23 +128,15 @@ ChatInputer = React.createClass
   speak: ->
     return if jQuery.trim(@state.text) == ''
 
-    if @props.with_member
-      room = {
-        type: 'Single'
-        id: @props.with_member.id
-      }
-
-    if @props.with_org
-      room = {
-        type: 'Organization'
-        id: room_id = @props.with_org.id
-      }
-
-    data = {
-      text: @state.text
-      room: room
-    }
+    content = { text: @state.text }
     @setState text: ''
 
-    App.room.speak data
-    
+    # 单聊
+    if @props.with_member
+      receiver_id = @props.with_member.id
+      App.room.speak_single receiver_id, content
+
+    # 机构群聊
+    if @props.with_org
+      org_id = @props.with_org.id
+      App.room.speak_organization org_id, content
