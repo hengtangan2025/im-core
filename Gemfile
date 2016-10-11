@@ -101,6 +101,7 @@ group :development do
 end
 
 group :production do
+  gem 'redis-namespace', '~> 1.5'
   gem 'sidekiq', '~> 4.2'
   gem 'unicorn', '~> 5.1'
 end
