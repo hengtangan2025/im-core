@@ -1,4 +1,4 @@
-{ Alert, Icon } = antd
+{ Alert, Icon, Spin } = antd
 
 module.exports = ChatRoom = React.createClass
   render: ->
@@ -26,25 +26,35 @@ Header = React.createClass
 
 ChatList = React.createClass
   getInitialState: ->
+    loading: true # 读取历史信息
     messages: []
 
   render: ->
     <div className='chat-list'>
-      <div className='channel-info'>
+      {@cinfo()}
+      <div className='messages'>
+      {
+        for message in @state.messages
+          <ChatItem key={message.id} message={message} />
+      }
+      </div>
+    </div>
+
+  cinfo: ->
+    <div className='channel-info'>
+      <Spin size='large' spinning={@state.loading}>
       {
         if @props.with_member
           <Alert message="你正在和 @#{@props.with_member.name} 单聊" type="info" />
         else if @props.with_org
           <Alert message="你正在组织机构 @#{@props.with_org.name} 中群聊" type="info" />
       }
-      </div>
-      {
-        for message in @state.messages
-          <ChatItem key={message.id} message={message} />
-      }
+      </Spin>
     </div>
 
   componentDidMount: ->
+    @load_history_messages()
+
     jQuery(document)
       .off 'received-message'
       .on 'received-message', (evt, data)=>
@@ -52,6 +62,14 @@ ChatList = React.createClass
         messages = @state.messages
         messages.push data
         @setState messages: messages
+
+  load_history_messages: ->
+    @setState loading: false
+    # jQuery.ajax
+    #   type: 'GET'
+    #   url: @props.history_messages_url
+    # .done (res)->
+    #   console.log res
 
 
 ChatItem = React.createClass
