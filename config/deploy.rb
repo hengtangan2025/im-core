@@ -9,7 +9,7 @@ require 'mina_sidekiq/tasks'
 set :domain, '42.120.41.92'
 set :deploy_to, '/web/im-core'
 set :current_path, 'current'
-set :repository, 'https://github.com/fushang318/im-core.git'
+set :repository, 'https://github.com/ben7th/im-core.git'
 set :branch, 'deploy'
 set :user, 'root'
 set :term_mode, nil
