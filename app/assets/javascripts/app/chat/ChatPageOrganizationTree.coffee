@@ -2,16 +2,23 @@
 TreeNode = Tree.TreeNode
 
 module.exports = OrganizationTree = React.createClass
-  render: ->
-    root = @props.data
+  getInitialState: ->
+    # 用来记录各个聊天室积累了多少未读消息
+    # {
+    #   room_key1: 1
+    #   room_key2: 3
+    #   room_key3: 5
+    # }
+    reminds: {} 
 
+  render: ->
     <div className='org-tree'>
       <Tree 
         defaultExpandAll
-        defaultSelectedKeys={[root.id]}
-        onSelect={@select_node}
+        defaultSelectedKeys={[@props.selected_node.id]}
+        onSelect={@do_select_node}
       >
-        {@org_node(root)}
+        {@org_node(@props.organization_tree)}
       </Tree>
     </div>
 
@@ -26,9 +33,10 @@ module.exports = OrganizationTree = React.createClass
 
     arr = members.concat children
 
-    <TreeNode 
-      title={<span><FaIcon type='circle-o' /> {org.name}</span>} 
-      key={org.id} org={org}
+    <TreeNode className='org-node'
+      title={@node_title(org)} 
+      key={org.id} 
+      _node={org}
     >
     {
       for item in arr
@@ -38,16 +46,50 @@ module.exports = OrganizationTree = React.createClass
           when 'member'
             member = item.member
             <TreeNode className='member-node'
-              title={<span><FaIcon type='user' /> {member.name}</span>}
-              key={member.id} member={member} 
+              title={@node_title(member)}
+              key={member.id} 
+              _node={member} 
             />
     }
     </TreeNode>
 
-  select_node: (selected_keys, evt)->
-    node = evt.node
+  node_title: (node)->
+    <span className='tree-node-title'>
+      {@_title_icon(node)}
+      <span className='name'>{node.name}</span>
+      {
+        if remind = @state.reminds[@_room_key(node)]
+          <span className='remind'>{remind}</span>
+      }
+    </span>
 
-    if org = node.props.org
-      @props.select_node(org)
-    if member = node.props.member
-      @props.select_node(member)
+  _title_icon: (node)->
+    # 机构房间 
+    return <FaIcon type='circle-o' /> if node.members
+    # 成员房间
+    return <FaIcon type='user' />
+
+  _room_key: (node)->
+    # 机构房间 
+    return node.id if node.members
+    # 成员房间
+    return [current_user.member_id, node.id].sort().join('-')
+
+  do_select_node: (selected_keys, evt)->
+    node = evt.node
+    _node = node.props._node
+
+    @props.do_select_node(_node)
+    reminds = @state.reminds
+    delete reminds[@_room_key(_node)]
+    @setState reminds: reminds
+
+  componentDidMount: ->
+    jQuery(document)
+      .off 'show-remind-message'
+      .on 'show-remind-message', (evt, data)=>
+        console.log 'show remind', data
+        reminds = @state.reminds
+        reminds[data.room.key] ||= 0
+        reminds[data.room.key] += 1
+        @setState reminds: reminds

@@ -1,57 +1,53 @@
 module.exports = ChatPage = React.createClass
   getInitialState: ->
-    selected_node: @props.organization_tree
+    selected_node: @load_selected_node()
 
   render: ->
-    ChatRoom = ChatPageChatRoom
-    CurrentUser = ChatPageCurrentUser
-
     <div className='chat-page'>
-      <Sidebar {...@props} select_node={@select_node} />
-      <CurrentUser />
-      {
-        if @state.selected_node.members
-          <ChatRoom with_org={@state.selected_node} />
-        else
-          <ChatRoom with_member={@state.selected_node} />
-      }
+      <Sidebar {...@props} 
+        do_select_node={@do_select_node}
+        selected_node={@state.selected_node}
+      />
+      <ChatPageCurrentUser />
+      {@render_chat_room()}
     </div>
 
-  select_node: (node)->
-    @setState selected_node: node
+  render_chat_room: ->
+    if @state.selected_node.members
+      <ChatPageChatRoom with_org={@state.selected_node} />
+    else
+      <ChatPageChatRoom with_member={@state.selected_node} />
 
-OrganizationTree = ChatPageOrganizationTree
+  do_select_node: (node)->
+    @setState selected_node: node
+    localStorage['selected_room_id'] = node.id
+
+  load_selected_node: ->
+    if localStorage['selected_room_id']?# and false
+      # 递归找到被选中的节点
+      node = @_r_load_selected_node(localStorage['selected_room_id'], @props.organization_tree)
+    else
+      node = @props.organization_tree
+      localStorage['selected_room_id'] = node.id
+
+    node
+
+  _r_load_selected_node: (id, node)->
+    return node if id == node.id
+    re = null
+    for child in (node.children || [])
+      break if re?
+      re = @_r_load_selected_node(id, child)
+    for member in (node.members || [])
+      break if re?
+      re = @_r_load_selected_node(id, member)
+
+    return re
+
 
 Sidebar = React.createClass
   render: ->
     <div className='sidebar'>
       <div className='header'>示例组织机构</div>
-      <OrganizationTree data={@props.organization_tree}  select_node={@props.select_node} />
-    </div>
-
-
-{ Table } = antd
-MembersTable = React.createClass
-  render: ->
-    data_source = @props.node.members
-    columns = [
-      {
-        title: '工号'
-        dataIndex: 'job_number'
-        key: 'job_number'
-      }
-      {
-        title: '姓名'
-        dataIndex: 'name'
-        key: 'name'
-      }
-    ]
-
-
-    <div className='members-table'>
-      <div className='header'>机构成员</div>
-      <div className='table-c' style={maxWidth: 900}>
-        <div style={paddingBottom: 20}>{@props.node.name}</div>
-        <Table bordered size='middle' dataSource={data_source} columns={columns} rowKey="job_number" />
-      </div>
+      <ChatPageOrganizationTree {...@props} />
     </div>

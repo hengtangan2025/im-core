@@ -75,11 +75,21 @@ ChatList = React.createClass
     jQuery(document)
       .off 'received-message'
       .on 'received-message', (evt, data)=>
-        return if data.room.key != @props.room.key
-        console.log 'received', data
-        messages = @state.messages
-        messages.push data
-        @setState messages: messages
+        @receive_message(data)
+
+  receive_message: (data)->
+    # console.log 'received message data'
+    if data.room.key == @props.room.key
+      # console.log 'show message', data
+      messages = @state.messages
+      messages.push data
+      @setState messages: messages
+    else
+      # console.log 'not in the room, so remind message'
+      @remind_message(data)
+
+  remind_message: (data)->
+    jQuery(document).trigger 'show-remind-message', data
 
   load_history_messages: ->
     history_messages_url = '/chat_messages/history'
@@ -110,12 +120,9 @@ ChatItem = React.createClass
     # }
 
     message = @props.message
-    astyle = {
-      backgroundColor: color20(message.talker.member_id)
-    }
 
     <div key={message.id} className='chat-item'>
-      <div className='avatar-first-char' style={astyle}>{message.talker.name[0]}</div>
+      <ChatCharAvatar user={message.talker} />
       <div className='m-content'>
         <div className='talker'>
           <span className='name'>{message.talker.name}</span>
