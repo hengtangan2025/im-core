@@ -23,6 +23,7 @@ window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
 window.OrganizationTreePage = require 'app/OrganizationTreePage'
 window.OrganizationNodeShow = require 'app/OrganizationNodeShow'
 
+window.ChatCharAvatar = require 'app/chat/ChatCharAvatar'
 window.ChatPageOrganizationTree = require 'app/chat/ChatPageOrganizationTree'
 window.ChatPageChatRoom = require 'app/chat/ChatPageChatRoom'
 window.ChatPageCurrentUser = require 'app/chat/ChatPageCurrentUser'

@@ -120,12 +120,9 @@ ChatItem = React.createClass
     # }
 
     message = @props.message
-    astyle = {
-      backgroundColor: color20(message.talker.member_id)
-    }
 
     <div key={message.id} className='chat-item'>
-      <div className='avatar-first-char' style={astyle}>{message.talker.name[0]}</div>
+      <ChatCharAvatar user={message.talker} />
       <div className='m-content'>
         <div className='talker'>
           <span className='name'>{message.talker.name}</span>
