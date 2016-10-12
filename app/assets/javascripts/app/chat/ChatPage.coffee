@@ -18,7 +18,6 @@ module.exports = ChatPage = React.createClass
     </div>
 
   select_node: (node)->
-    console.log node
     @setState selected_node: node
 
 OrganizationTree = ChatPageOrganizationTree

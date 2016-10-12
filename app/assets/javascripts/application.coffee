@@ -10,6 +10,10 @@ Date.prototype.format = (str)-> format_date(this, str)
 
 window.color20 = require 'utils/color20'
 
+# fix phone bug
+require 'utils/object_assign'
+
+
 # # layouts
 window.YieldComponent = require 'react/layouts/YieldComponent'
 window.AppLayout = require 'react/layouts/AppLayout'

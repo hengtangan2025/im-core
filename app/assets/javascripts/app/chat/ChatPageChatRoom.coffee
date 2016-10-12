@@ -2,23 +2,40 @@
 
 module.exports = ChatRoom = React.createClass
   render: ->
-    key = (@props.with_member || @props.with_org).id
+    room = @abstract_room()
 
-    <div className='chat-room' key={key}>
-      <Header {...@props} />
-      <ChatList {...@props} />
+    <div className='chat-room' key={room.key}>
+      <Header {...@props} room={room} />
+      <ChatList {...@props} room={room} />
       <ChatInputer {...@props} />
     </div>
+
+  abstract_room: ->
+    if @props.with_member
+      return {
+        type: 'SINGLE'
+        key: [current_user.member_id, @props.with_member.id].sort().join('-')
+        sender_id: current_user.member_id
+      }
+
+    if @props.with_org
+      return {
+        type: 'ORGANIZATION'
+        key: @props.with_org.id
+        sender_id: current_user.member_id
+      }
 
 Header = React.createClass
   render: ->
     if @props.with_member
       <div className='header'>
         <span className='info member-info'><FaIcon type='user' /> {@props.with_member.name}</span>
+        <span>room_key: {@props.room.key}</span>
       </div>
     else if @props.with_org
       <div className='header'>
         <span className='info org-info'><FaIcon type='circle-o' /> {@props.with_org.name}</span>
+        <span>room_key: {@props.room.key}</span>
         <div className='members'>
           <Icon type='team' /> {@props.with_org.members.length}
         </div>
@@ -58,19 +75,25 @@ ChatList = React.createClass
     jQuery(document)
       .off 'received-message'
       .on 'received-message', (evt, data)=>
+        return if data.room.key != @props.room.key
         console.log 'received', data
         messages = @state.messages
         messages.push data
         @setState messages: messages
 
   load_history_messages: ->
-    @setState loading: false
-    # jQuery.ajax
-    #   type: 'GET'
-    #   url: @props.history_messages_url
-    # .done (res)->
-    #   console.log res
+    history_messages_url = '/chat_messages/history'
 
+    jQuery.ajax
+      type: 'GET'
+      url: history_messages_url
+      data:
+        room: @props.room
+    .done (res)=>
+      console.log res
+      @setState 
+        loading: false
+        messages: res
 
 ChatItem = React.createClass
   render: ->
