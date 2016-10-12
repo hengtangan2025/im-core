@@ -1,11 +1,17 @@
+{ Button, Alert } = antd
+
 module.exports = OrganizationsTreesPage = React.createClass
   render: ->
-    <div>
-      <div>机构清单：</div>
-    {
-      for root in @props.tree_roots
-        <div key={root.id}>
-          {root.name}: <a href={root.path}>{root.path}</a>
-        </div>
-    }
+    root = @props.tree_roots[0]
+
+    url = root.path
+
+    <div style={maxWidth: 500}>
+      <Alert type='info' 
+        message='你正在访问开发中的体验环境'
+        description="测试机构 ID: #{root.id}" 
+      />
+      <a className='ant-btn ant-btn-primary' href={url}>
+        <FaIcon type='arrow-right' /> 进入测试环境
+      </a>
     </div>
