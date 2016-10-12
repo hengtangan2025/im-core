@@ -18,6 +18,9 @@ require 'utils/object_assign'
 window.YieldComponent = require 'react/layouts/YieldComponent'
 window.AppLayout = require 'react/layouts/AppLayout'
 
+# auth
+window.AuthSignInPage = require 'app/auth/AuthSignInPage'
+
 # components
 window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
 window.OrganizationTreePage = require 'app/OrganizationTreePage'

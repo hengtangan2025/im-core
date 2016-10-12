@@ -300,3 +300,8 @@ https://www.relishapp.com/rspec/rspec-expectations/v/3-2/docs/built-in-matchers
 
 http://wulfric.me/2016/09/active-job-action-cable-in-rails/
 
+
+
+### 部署 action cable 特性到 heroku
+
+http://www.thegreatcodeadventure.com/deploying-action-cable-to-heroku/
