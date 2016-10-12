@@ -84,9 +84,19 @@ ChatList = React.createClass
       messages = @state.messages
       messages.push data
       @setState messages: messages
+
+      @send_notification(data)
     else
       # console.log 'not in the room, so remind message'
       @remind_message(data)
+
+  send_notification: (data)->
+    if data.talker.member_id != current_user.member_id
+      new Notification("有一条新消息", {
+        body: "#{data.talker.name}: #{data.content.text}"
+        # icon: 'http://i.teamkn.com/i/fvnih9Ar.png'
+        icon: 'http://i.teamkn.com/i/jysbxKvq.png'
+      })
 
   remind_message: (data)->
     jQuery(document).trigger 'show-remind-message', data

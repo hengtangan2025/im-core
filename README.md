@@ -305,3 +305,10 @@ http://wulfric.me/2016/09/active-job-action-cable-in-rails/
 ### 部署 action cable 特性到 heroku
 
 http://www.thegreatcodeadventure.com/deploying-action-cable-to-heroku/
+
+
+
+### html5 浏览器通知逻辑
+
+http://www.cnblogs.com/lxshanye/p/3560188.html
+https://developer.mozilla.org/en-US/docs/Web/API/notification
