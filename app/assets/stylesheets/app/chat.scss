@@ -55,6 +55,12 @@ $online-color: #82C458;
         .member-node i {
           color: $online-color;
         }
+
+        .ant-tree-node-selected {
+          background-color: #5254A3;
+          color: white;
+          i {color: white !important;}
+        }
       }
     }
   }

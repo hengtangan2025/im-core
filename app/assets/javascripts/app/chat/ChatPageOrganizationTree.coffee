@@ -3,15 +3,15 @@ TreeNode = Tree.TreeNode
 
 module.exports = OrganizationTree = React.createClass
   render: ->
-    root = @props.data
+    tree = @props.organization_tree
 
     <div className='org-tree'>
       <Tree 
         defaultExpandAll
-        defaultSelectedKeys={[root.id]}
-        onSelect={@select_node}
+        defaultSelectedKeys={[@props.selected_node.id]}
+        onSelect={@do_select_node}
       >
-        {@org_node(root)}
+        {@org_node(tree)}
       </Tree>
     </div>
 
@@ -44,10 +44,10 @@ module.exports = OrganizationTree = React.createClass
     }
     </TreeNode>
 
-  select_node: (selected_keys, evt)->
+  do_select_node: (selected_keys, evt)->
     node = evt.node
 
     if org = node.props.org
-      @props.select_node(org)
+      @props.do_select_node(org)
     if member = node.props.member
-      @props.select_node(member)
+      @props.do_select_node(member)
