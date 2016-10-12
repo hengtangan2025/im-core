@@ -3,18 +3,22 @@ TreeNode = Tree.TreeNode
 
 module.exports = OrganizationTree = React.createClass
   getInitialState: ->
-    reminds: {} # 用来记录各个聊天室积累了多少未读消息
+    # 用来记录各个聊天室积累了多少未读消息
+    # {
+    #   room_key1: 1
+    #   room_key2: 3
+    #   room_key3: 5
+    # }
+    reminds: {} 
 
   render: ->
-    tree = @props.organization_tree
-
     <div className='org-tree'>
       <Tree 
         defaultExpandAll
         defaultSelectedKeys={[@props.selected_node.id]}
         onSelect={@do_select_node}
       >
-        {@org_node(tree)}
+        {@org_node(@props.organization_tree)}
       </Tree>
     </div>
 
@@ -29,9 +33,10 @@ module.exports = OrganizationTree = React.createClass
 
     arr = members.concat children
 
-    <TreeNode 
-      title={@org_title(org)} 
-      key={org.id} org={org}
+    <TreeNode className='org-node'
+      title={@node_title(org)} 
+      key={org.id} 
+      _node={org}
     >
     {
       for item in arr
@@ -41,53 +46,43 @@ module.exports = OrganizationTree = React.createClass
           when 'member'
             member = item.member
             <TreeNode className='member-node'
-              title={@member_title(member)}
-              key={member.id} member={member} 
+              title={@node_title(member)}
+              key={member.id} 
+              _node={member} 
             />
     }
     </TreeNode>
 
-  org_title: (org)->
-    room_key = org.id
-    remind = @state.reminds[room_key]
-
+  node_title: (node)->
     <span className='tree-node-title'>
-      <FaIcon type='circle-o' />
-      <span className='name'>{org.name}</span>
+      {@_title_icon(node)}
+      <span className='name'>{node.name}</span>
       {
-        if remind
+        if remind = @state.reminds[@_room_key(node)]
           <span className='remind'>{remind}</span>
       }
     </span>
 
-  member_title: (member)->
-    room_key = [current_user.member_id, member.id].sort().join('-')
-    remind = @state.reminds[room_key]
+  _title_icon: (node)->
+    # 机构房间 
+    return <FaIcon type='circle-o' /> if node.members
+    # 成员房间
+    return <FaIcon type='user' />
 
-    <span className='tree-node-title'>
-      <FaIcon type='user' />
-      <span className='name'>{member.name}</span>
-      {
-        if remind
-          <span className='remind'>{remind}</span>
-      }
-    </span>
+  _room_key: (node)->
+    # 机构房间 
+    return node.id if node.members
+    # 成员房间
+    return [current_user.member_id, node.id].sort().join('-')
 
   do_select_node: (selected_keys, evt)->
     node = evt.node
+    _node = node.props._node
 
-    if org = node.props.org
-      @props.do_select_node(org)
-      reminds = @state.reminds
-      delete reminds[org.id]
-      @setState reminds: reminds
-
-    if member = node.props.member
-      @props.do_select_node(member)
-      reminds = @state.reminds
-      room_key = [current_user.member_id, member.id].sort().join('-')
-      delete reminds[room_key]
-      @setState reminds: reminds
+    @props.do_select_node(_node)
+    reminds = @state.reminds
+    delete reminds[@_room_key(_node)]
+    @setState reminds: reminds
 
   componentDidMount: ->
     jQuery(document)

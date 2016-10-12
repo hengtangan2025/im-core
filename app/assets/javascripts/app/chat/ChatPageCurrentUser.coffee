@@ -7,13 +7,12 @@ module.exports = ChatPageCurrentUser = React.createClass
 
 Signout = React.createClass
   render: ->
-    # DELETE /resource/sign_out
-
     <a className='sign-out-link' title='登出' onClick={@sign_out}>
       <FaIcon type='sign-out' />
     </a>
 
   sign_out: ->
+    # DELETE /resource/sign_out
     jQuery.ajax
       type: 'DELETE'
       url: '/users/sign_out'
