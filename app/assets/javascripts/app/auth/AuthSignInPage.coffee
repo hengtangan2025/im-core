@@ -51,6 +51,7 @@ Page = React.createClass
       data: data
 
 
+
 SampleTable = React.createClass
   render: ->
     columns = [
@@ -69,8 +70,6 @@ SampleTable = React.createClass
     ]
 
     data = @props.users
-
-    console.log data
 
     <div className='sample-users-table'>
       <h3>你可以使用这些测试用户登录：</h3>

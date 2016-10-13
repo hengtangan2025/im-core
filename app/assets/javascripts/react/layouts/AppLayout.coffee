@@ -5,5 +5,5 @@ module.exports = AppLayout = React.createClass
     }
 
     <div className='app-layout' style={style}>
-      <YieldComponent component={@props.content_component} />
+      <YieldComponent component={window.content_component} />
     </div>

@@ -13,4 +13,7 @@
     }
   }
 
-= react_component 'AppLayout', content_component: content_component
+:javascript
+  window.content_component = #{content_component.to_json}
+
+= react_component 'AppLayout'
