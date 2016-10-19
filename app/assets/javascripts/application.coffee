@@ -1,26 +1,26 @@
 # utils
-require 'utils/index'
+require 'utils/_index'
 
 # # layouts
-require 'layouts/index'
+require 'layouts/_index'
 
 # # app components
 window.AppComponents = {}
-window.register = (component, name=null)->
-  component_name = name || component.displayName
-  window.AppComponents[component_name] = component
+register = (component, displayName=null)->
+  component.displayName = displayName || component.displayName
+  window.AppComponents[component.displayName] = component
 
 # auth
-window.register (require 'app/auth/AuthSignInPage'), 'AuthSignInPage'
+register (require 'app/auth/AuthSignInPage'), 'AuthSignInPage'
 
 # organization
-window.register require 'app/OrganizationsTreesPage'
-window.register require 'app/OrganizationTreePage'
-window.register require 'app/OrganizationNodeShow'
+register require 'app/OrganizationsTreesPage'
+register require 'app/OrganizationTreePage'
+register require 'app/OrganizationNodeShow'
 
 # chatroom
-window.register require 'app/chat/ChatCharAvatar'
-window.register require 'app/chat/ChatPageOrganizationTree'
-window.register require 'app/chat/ChatPageChatRoom'
-window.register require 'app/chat/ChatPageCurrentUser'
-window.register require 'app/chat/ChatPage'
+register require 'app/chat/ChatCharAvatar'
+register require 'app/chat/ChatPageOrganizationTree'
+register require 'app/chat/ChatPageChatRoom'
+register require 'app/chat/ChatPageCurrentUser'
+register require 'app/chat/ChatPage'
