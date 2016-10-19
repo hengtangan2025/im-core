@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
       @component_name = @component_name.camelize
       
       respond_to do |format|
-        format.html { render template: '/index/component' }
+        format.html { render text: nil, layout: true }
         format.json { render json: @component_data }
       end
     else
