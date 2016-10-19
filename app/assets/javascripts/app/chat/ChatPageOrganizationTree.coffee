@@ -1,7 +1,7 @@
 { Tree, Icon } = antd
 TreeNode = Tree.TreeNode
 
-module.exports = OrganizationTree = React.createClass
+module.exports = ChatPageOrganizationTree = React.createClass
   getInitialState: ->
     # 用来记录各个聊天室积累了多少未读消息
     # {

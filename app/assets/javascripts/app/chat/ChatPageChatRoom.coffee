@@ -1,6 +1,7 @@
 { Alert, Icon, Spin } = antd
+{ ChatCharAvatar } = AppComponents
 
-module.exports = ChatRoom = React.createClass
+module.exports = ChatPageChatRoom = React.createClass
   render: ->
     room = @abstract_room()
 
@@ -36,6 +37,7 @@ Header = React.createClass
       <div className='header'>
         <span className='info org-info'><FaIcon type='circle-o' /> {@props.with_org.name}</span>
         <span>room_key: {@props.room.key}</span>
+        <a href="/organizations/#{@props.room.key}" target='_blank'>[查看机构信息]</a>
         <div className='members'>
           <Icon type='team' /> {@props.with_org.members.length}
         </div>

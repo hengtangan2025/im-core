@@ -1,3 +1,6 @@
+{ ChatPageOrganizationTree, ChatPageChatRoom, ChatPageCurrentUser} = AppComponents
+
+
 module.exports = ChatPage = React.createClass
   getInitialState: ->
     selected_node: @load_selected_node()

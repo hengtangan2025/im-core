@@ -13,4 +13,7 @@ module.exports = OrganizationNodeShow = React.createClass
           <div key={child.id}>下级：{child.name}</div>
       }
       </div>
+      <div>
+        <a href="/organizations/#{node.id}/show_tree">[显示机构树]</a>
+      </div>
     </div>
