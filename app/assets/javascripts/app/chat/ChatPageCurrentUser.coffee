@@ -1,3 +1,5 @@
+{ ChatCharAvatar } = AppComponents
+
 module.exports = ChatPageCurrentUser = React.createClass
   render: ->
     <div className='current-user-bar'>

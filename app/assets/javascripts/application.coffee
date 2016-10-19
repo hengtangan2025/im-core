@@ -1,33 +1,26 @@
 # utils
-window.ClassName = require 'utils/ClassName'
-window.randstr = require 'utils/randstr'
-
-# http://fontawesome.io/icons/
-window.FaIcon = require 'utils/FaIcon'
-
-format_date = require 'utils/format_date'
-Date.prototype.format = (str)-> format_date(this, str)
-
-window.color20 = require 'utils/color20'
-
-# fix phone bug
-require 'utils/object_assign'
-
+require 'utils/index'
 
 # # layouts
-window.YieldComponent = require 'react/layouts/YieldComponent'
-window.AppLayout = require 'react/layouts/AppLayout'
+require 'layouts/index'
+
+# # app components
+window.AppComponents = {}
+window.register = (component, name=null)->
+  component_name = name || component.displayName
+  window.AppComponents[component_name] = component
 
 # auth
-window.AuthSignInPage = require 'app/auth/AuthSignInPage'
+window.register (require 'app/auth/AuthSignInPage'), 'AuthSignInPage'
 
-# components
-window.OrganizationsTreesPage = require 'app/OrganizationsTreesPage'
-window.OrganizationTreePage = require 'app/OrganizationTreePage'
-window.OrganizationNodeShow = require 'app/OrganizationNodeShow'
+# organization
+window.register require 'app/OrganizationsTreesPage'
+window.register require 'app/OrganizationTreePage'
+window.register require 'app/OrganizationNodeShow'
 
-window.ChatCharAvatar = require 'app/chat/ChatCharAvatar'
-window.ChatPageOrganizationTree = require 'app/chat/ChatPageOrganizationTree'
-window.ChatPageChatRoom = require 'app/chat/ChatPageChatRoom'
-window.ChatPageCurrentUser = require 'app/chat/ChatPageCurrentUser'
-window.ChatPage = require 'app/chat/ChatPage'
+# chatroom
+window.register require 'app/chat/ChatCharAvatar'
+window.register require 'app/chat/ChatPageOrganizationTree'
+window.register require 'app/chat/ChatPageChatRoom'
+window.register require 'app/chat/ChatPageCurrentUser'
+window.register require 'app/chat/ChatPage'
