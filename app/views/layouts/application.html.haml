@@ -32,5 +32,6 @@
 
     :javascript
       window.current_user = #{current_user_info.to_json}
+      window.content_component = #{content_component.to_json}
 
-    = react_component 'AppLayout', content_component: content_component
+    = react_component 'AppLayout'

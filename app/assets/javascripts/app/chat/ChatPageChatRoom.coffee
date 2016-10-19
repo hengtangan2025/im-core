@@ -1,6 +1,7 @@
 { Alert, Icon, Spin } = antd
+{ ChatCharAvatar } = AppComponents
 
-module.exports = ChatRoom = React.createClass
+module.exports = ChatPageChatRoom = React.createClass
   render: ->
     room = @abstract_room()
 
@@ -36,6 +37,7 @@ Header = React.createClass
       <div className='header'>
         <span className='info org-info'><FaIcon type='circle-o' /> {@props.with_org.name}</span>
         <span>room_key: {@props.room.key}</span>
+        <a href="/organizations/#{@props.room.key}" target='_blank'>[查看机构信息]</a>
         <div className='members'>
           <Icon type='team' /> {@props.with_org.members.length}
         </div>
@@ -84,9 +86,19 @@ ChatList = React.createClass
       messages = @state.messages
       messages.push data
       @setState messages: messages
+
+      @send_notification(data)
     else
       # console.log 'not in the room, so remind message'
       @remind_message(data)
+
+  send_notification: (data)->
+    if data.talker.member_id != current_user.member_id
+      new Notification("有一条新消息", {
+        body: "#{data.talker.name}: #{data.content.text}"
+        # icon: 'http://i.teamkn.com/i/fvnih9Ar.png'
+        icon: 'http://i.teamkn.com/i/jysbxKvq.png'
+      })
 
   remind_message: (data)->
     jQuery(document).trigger 'show-remind-message', data

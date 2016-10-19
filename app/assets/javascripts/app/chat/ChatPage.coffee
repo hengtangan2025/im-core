@@ -1,3 +1,6 @@
+{ ChatPageOrganizationTree, ChatPageChatRoom, ChatPageCurrentUser} = AppComponents
+
+
 module.exports = ChatPage = React.createClass
   getInitialState: ->
     selected_node: @load_selected_node()
@@ -43,6 +46,21 @@ module.exports = ChatPage = React.createClass
       re = @_r_load_selected_node(id, member)
 
     return re
+
+  componentDidMount: ->
+    return if not Notification?
+
+    if Notification.permission == 'granted'
+      # 已授权
+      # new Notification('hello!', {
+      #   body: '这是一条通知消息'
+      #   # icon: 'http://i.teamkn.com/i/fvnih9Ar.png'
+      #   icon: 'http://i.teamkn.com/i/jysbxKvq.png'
+      # })
+    else
+      # 未授权，请求授权
+      Notification?.requestPermission ->
+        new Notification("已经允许浏览器通知 :)")
 
 
 Sidebar = React.createClass

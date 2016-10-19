@@ -7,6 +7,6 @@
 #= require react
 #= require react_ujs
 
-#= require antd/antd-2.0.0.min
+#= require antd/antd-2.0.1.min
 
 window.URI = require 'urijs'
