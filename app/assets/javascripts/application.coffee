@@ -1,10 +1,16 @@
+#= require libs
+#= require react-adapter
+#= require antd-adapter
+
 # utils
 require 'utils/_index'
 
-# # layouts
+# layouts
 require 'layouts/_index'
 
-# # app components
+# -----------------------------
+
+# app components
 window.AppComponents = {}
 register = (component, displayName=null)->
   component.displayName = displayName || component.displayName

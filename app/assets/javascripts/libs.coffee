@@ -4,9 +4,5 @@
 
 #= require cable
 
-#= require react
-#= require react_ujs
-
-#= require antd/antd-2.0.1.min
-
+# https://github.com/medialize/URI.js
 window.URI = require 'urijs'

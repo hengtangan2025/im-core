@@ -1,11 +1,19 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
 
-  layout 'user-auth'
-
   # GET /resource/sign_in
   def new
-    super
+    @component_name = 'AuthSignInPage'
+    @component_data = {
+      submit_url: session_path(resource_name),
+      users: User.all.map { |x|
+        {
+          email: x.email,
+          name: x.member.name,
+          password: '123456'
+        }
+      }
+    }
   end
 
   # POST /resource/sign_in

@@ -18,7 +18,7 @@ Page = React.createClass
 
           <FormItem label='密码'>
           {getFieldDecorator('user[password]')(
-            <Input placeholder="输入密码" />
+            <Input type='password' placeholder="输入密码" />
           )}
           </FormItem>
 
@@ -42,9 +42,6 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-
-    console.log data
-    
     jQuery.ajax
       type: 'POST'
       url: @props.submit_url
