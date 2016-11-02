@@ -61,12 +61,11 @@ end
 ### 以下是自己添加的 gem
 
 # 用户验证
-
 gem 'devise', '~> 4.2.0'
 
+# https://github.com/reactjs/react-rails
+# 引入 reactjs
 group :development, :production do
-  # https://github.com/reactjs/react-rails
-  # 引入 reactjs
   gem 'react-rails', '~> 1.8.2'
 end
 
@@ -91,7 +90,6 @@ gem 'mongoid-tree', "~> 2.1.0", :require => 'mongoid/tree'
 
 
 ### 以下是部署相关
-
 gem "rest-client", "2.0.0"
 
 group :development do

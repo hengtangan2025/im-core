@@ -4,6 +4,8 @@
     "browserify": "~> 10.2.4",
     "browserify-incremental": "^3.0.1",
     "coffee-reactify": "~> 5.0.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "urijs": "^1.18.1"
   },
   "license": "MIT",
