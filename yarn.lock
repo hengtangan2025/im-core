@@ -8,9 +8,13 @@ acorn@^2.7.0:
   version "2.7.0"
   resolved "http://registry.npm.taobao.org/acorn/download/acorn-2.7.0.tgz#ab6e7d9d886aaca8b085bc3312b79a198433f0e7"
 
+acorn@^3.1.0:
+  version "3.3.0"
+  resolved "http://registry.npm.taobao.org/acorn/download/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
+
 amdefine@>=0.0.4:
-  version "1.0.0"
-  resolved "http://registry.npm.taobao.org/amdefine/download/amdefine-1.0.0.tgz#fd17474700cb5cc9c2b709f0be9d23ce3c198c33"
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
 asap@~2.0.3:
   version "2.0.5"
@@ -370,10 +374,10 @@ des.js@^1.0.0:
     minimalistic-assert "^1.0.0"
 
 detective@^4.0.0:
-  version "4.3.1"
-  resolved "http://registry.npm.taobao.org/detective/download/detective-4.3.1.tgz#9fb06dd1ee8f0ea4dbcc607cda39d9ce1d4f726f"
+  version "4.3.2"
+  resolved "http://registry.npm.taobao.org/detective/download/detective-4.3.2.tgz#77697e2e7947ac3fe7c8e26a6d6f115235afa91c"
   dependencies:
-    acorn "^1.0.3"
+    acorn "^3.1.0"
     defined "^1.0.0"
 
 diffie-hellman@^5.0.0:
@@ -753,17 +757,17 @@ randombytes@^2.0.0, randombytes@^2.0.1:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/randombytes/download/randombytes-2.0.3.tgz#674c99760901c3c4112771a31e521dc349cc09ec"
 
-react:
+react-dom@^15.3.2:
+  version "15.3.2"
+  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
+
+react@^15.3.2:
   version "15.3.2"
   resolved "http://registry.npm.taobao.org/react/download/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-
-react-dom:
-  version "15.3.2"
-  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
 read-only-stream@^1.1.1:
   version "1.1.1"
