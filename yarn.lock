@@ -349,6 +349,10 @@ crypto-browserify@^3.0.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
 
+css-mediaquery@^0.1.2:
+  version "0.1.2"
+  resolved "http://registry.npm.taobao.org/css-mediaquery/download/css-mediaquery-0.1.2.tgz#6a2c37344928618631c54bd33cedd301da18bea0"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "http://registry.npm.taobao.org/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -474,6 +478,10 @@ http-browserify@^1.4.0:
 https-browserify@~0.0.0:
   version "0.0.1"
   resolved "http://registry.npm.taobao.org/https-browserify/download/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
+
+hyphenate-style-name@^1.0.0:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/hyphenate-style-name/download/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
 iconv-lite@~0.4.13:
   version "0.4.13"
@@ -608,6 +616,12 @@ loose-envify@^1.0.0, loose-envify@^1.1.0:
   dependencies:
     js-tokens "^2.0.0"
 
+matchmedia@^0.1.2:
+  version "0.1.2"
+  resolved "http://registry.npm.taobao.org/matchmedia/download/matchmedia-0.1.2.tgz#cfd47f2bf68fbc7f5ea1bd3a3cf1715ecba3c1bd"
+  dependencies:
+    css-mediaquery "^0.1.2"
+
 miller-rabin@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/miller-rabin/download/miller-rabin-4.0.0.tgz#4a62fb1d42933c05583982f4c716f6fb9e6c6d3d"
@@ -665,7 +679,7 @@ node-fetch@^1.0.1:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
-object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.0"
   resolved "http://registry.npm.taobao.org/object-assign/download/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
@@ -760,6 +774,14 @@ randombytes@^2.0.0, randombytes@^2.0.1:
 react-dom@^15.3.2:
   version "15.3.2"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
+
+react-responsive:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/react-responsive/download/react-responsive-1.2.1.tgz#97c8e4b8bd5c8d69a09ed78703f6ea156d1f3909"
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmedia "^0.1.2"
+    object-assign "^4.0.1"
 
 react@^15.3.2:
   version "15.3.2"

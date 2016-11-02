@@ -8,3 +8,5 @@ window.ReactRailsUJS.unmountComponents = (searchSelector)->
   for node in nodes
     key = Object.keys(node.firstChild)[0]
     ReactDOM.unmountComponentAtNode(node) if key
+
+window.MediaQuery = require 'react-responsive'
