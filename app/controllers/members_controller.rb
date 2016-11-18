@@ -36,8 +36,14 @@ class MembersController < ApplicationController
   end
 
   def edit
+    member = Member.find(params[:id])
     @component_name = 'MembersEditPage'
     @component_data = {
+      name: member.name,
+      email: member.user.email,
+      job_number: member.job_number,
+      organization: member.organization_nodes.map {|x| x.name}.join(","),
+      password: member.user.password,
       submit_url: "/members/" + params[:id],
       organization_nodes: OrganizationNode.all.map { |node|
         {

@@ -17,7 +17,7 @@ Page = React.createClass
             {...formItemLayout}
             label="用户名"
           >
-          {getFieldDecorator('member[name]')(
+          {getFieldDecorator('member[name]', {initialValue: @props.name})(
             <Input className="form-input" placeholder="输入用户名" />
           )}
           </FormItem>
@@ -26,7 +26,7 @@ Page = React.createClass
             {...formItemLayout}
             label="邮箱"
           >
-          {getFieldDecorator('member[email]')(
+          {getFieldDecorator('member[email]', {initialValue: @props.email})(
             <Input className="form-input" placeholder="输入邮箱" />
           )}
           </FormItem>
@@ -35,7 +35,7 @@ Page = React.createClass
             {...formItemLayout}
             label="工号"
           >
-          {getFieldDecorator('member[job_number]')(
+          {getFieldDecorator('member[job_number]', {initialValue: @props.job_number})(
             <Input className="form-input" placeholder="输入工号" />
           )}
           </FormItem>
