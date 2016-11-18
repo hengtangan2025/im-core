@@ -14,10 +14,11 @@ Rails.application.routes.draw do
 
   root to: 'index#index'
 
+  resources :members
+
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member
-    get :new, on: :collection
     get :organization_list, on: :collection
     get :edit_organization, on: :member
     post :update_organization, on: :member
