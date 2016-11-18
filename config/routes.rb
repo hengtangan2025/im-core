@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   root to: 'index#index'
 
+  resources :members
+
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member

@@ -30,3 +30,8 @@ register require 'app/chat/ChatPageOrganizationTree'
 register require 'app/chat/ChatPageChatRoom'
 register require 'app/chat/ChatPageCurrentUser'
 register require 'app/chat/ChatPage'
+
+# member 
+register require 'app/member/MembersIndexPage'
+register (require 'app/member/MembersNewPage'), 'MembersNewPage'
+register (require 'app/member/MembersEditPage'), 'MembersEditPage'
