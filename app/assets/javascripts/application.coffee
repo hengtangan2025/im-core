@@ -24,9 +24,16 @@ register require 'app/OrganizationsTreesPage'
 register require 'app/OrganizationTreePage'
 register require 'app/OrganizationNodeShow'
 
+register require 'app/OrganizationsManagerPage'
+register (require 'app/CreateOrganizationPage'), 'CreateOrganizationPage'
+register (require 'app/EditOrganizationPage'), 'EditOrganizationPage'
+
 # chatroom
 register require 'app/chat/ChatCharAvatar'
 register require 'app/chat/ChatPageOrganizationTree'
-register require 'app/chat/ChatPageChatRoom'
+register require 'app/chat/ChatPageChatRoom' 
 register require 'app/chat/ChatPageCurrentUser'
 register require 'app/chat/ChatPage'
+
+# user
+register (require 'app/CreateUserPage'), 'CreateUserPage'
