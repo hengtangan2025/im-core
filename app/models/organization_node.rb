@@ -8,6 +8,25 @@ class OrganizationNode
   include Mongoid::Tree
 
   field :name, type: String
+  field :code, type: String
+  after_create :save_code
+  before_destroy :delete_relation
+  
+
+  def save_code
+    code = OrganizationNode.count.to_s
+    if code.length<5
+      code = "0"*(5 - code.length) + code
+    end
+    self.code = code
+    self.save
+  end
+
+  def delete_relation
+    self.children.each do |c|
+      c.parent_id = nil
+    end
+  end
 
   has_and_belongs_to_many :members
 
