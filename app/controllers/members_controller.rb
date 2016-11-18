@@ -28,10 +28,12 @@ class MembersController < ApplicationController
   end
 
   def create
-    user = User.create(:email => params[:member][:email], :password => params[:member][:password])
-    member = Member.create(:name => params[:member][:name], :job_number => params[:member][:job_number], :organization_node_ids => params[:member][:organization], :user_id => user.id)
+    user = User.new(:email => params[:member][:email], :password => params[:member][:password])
+    member = Member.new(:name => params[:member][:name], :job_number => params[:member][:job_number], :organization_node_ids => params[:member][:organization], :user_id => user.id)
     if member.save && user.save
       redirect_to "/members"
+    else
+      render json: "新建失败"
     end
   end
 
@@ -58,8 +60,11 @@ class MembersController < ApplicationController
     member = Member.find(params[:id])
     member.update(:name => params[:member][:name], :job_number => params[:member][:job_number], :organization_node_ids => params[:member][:organization])
     member.user.update(:email => params[:member][:email])
-    member.save
-    redirect_to "/members"
+    if member.save
+      redirect_to "/members"
+    else
+      render json: "修改失败"
+    end
   end
 
   def destroy

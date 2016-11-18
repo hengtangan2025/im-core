@@ -5,7 +5,6 @@ Option = Select.Option
 
 Page = React.createClass
   render: ->
-    console.log(@props.organization_nodes)
     { getFieldDecorator } = @props.form
     formItemLayout = {
       labelCol: { span: 8 },
