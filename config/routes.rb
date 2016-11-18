@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get :organization_list, on: :collection
     get :edit_organization, on: :member
     post :update_organization, on: :member
+    get :organization_tree_show, on: :collection
   end
 
   resources :chat_messages do

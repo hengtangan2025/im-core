@@ -101,11 +101,18 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # 解除公司关系
+  # 删除公司并且解除与 parent 和 children 的关系
   def destroy
     organization = OrganizationNode.find(params[:id])
     organization.destroy
     redirect_to "/organizations/organization_list"
   end
-  
+
+  def organization_tree_show
+    # 展现组织树状图
+    @component_name = 'OrganizationTreeShowPage'
+    @component_data = {
+      organizations:  OrganizationNode.where(depth:"0").all.to_a.map{|x| x.tree_data}
+    } 
+  end
 end

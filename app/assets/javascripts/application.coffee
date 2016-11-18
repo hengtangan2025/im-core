@@ -25,6 +25,8 @@ register require 'app/OrganizationTreePage'
 register require 'app/OrganizationNodeShow'
 
 register require 'app/OrganizationsManagerPage'
+register require 'app/OrganizationTreeShowPage'
+
 register (require 'app/CreateOrganizationPage'), 'CreateOrganizationPage'
 register (require 'app/EditOrganizationPage'), 'EditOrganizationPage'
 

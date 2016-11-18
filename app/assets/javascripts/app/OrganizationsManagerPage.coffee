@@ -40,7 +40,7 @@ module.exports = OrganizationsManagerPage = React.createClass
       <a className='ant-btn ant-btn-primary' href="/organizations/new">
         新增机构
       </a>
-      <a className='ant-btn ant-btn-primary' href="">
+      <a className='ant-btn ant-btn-primary' href="/organizations/organization_tree_show">
         查看树状结构
       </a>
       <Table columns={columns} dataSource={datas} pagination={false}/>
