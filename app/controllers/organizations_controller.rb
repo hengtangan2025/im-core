@@ -34,68 +34,52 @@ class OrganizationsController < ApplicationController
 
   # 新增机构
   def new
-    @component_name = 'CreateOrganizationPage'
+    organization = OrganizationNode.new
+    @component_name = 'CreateUpdatePage'
     @component_data = {
-      submit_url: "/organizations",
-      organization_nodes: OrganizationNode.all.map { |node|
-        {
-          id: node.id.to_s,
-          name: node.name,
-        }
-      }
+      organization: organization.controller_data,
+      submit_url: organizations_path(organization),
+      cancel_url: organizations_path,
+      organization_nodes: OrganizationNode.all.map { |node| node.controller_data }
     }
   end
 
   # 新增机构
   def create
-    organization = OrganizationNode.new(name: params[:OrganizationNode][:name], code: params[:OrganizationNode][:code], parent_id: params[:OrganizationNode][:organizationId])
+    organization = OrganizationNode.new(organization_params)
     if organization.save
-      redirect_to "/organizations/organization_list"
+      redirect_to organizations_path
     else
       render json: "创建机构失败"
     end
   end
 
   # 组织机构列表
-  def organization_list
-    @component_name = 'OrganizationsManagerPage'
+  def index
+    @component_name = 'ListPage'
     @component_data = {
-      organization: OrganizationNode.all.map { |organization|
-        {
-          id: organization.id.to_s,
-          name: organization.name,
-          code: organization.code,
-          parents_name:  organization.parent?.to_s == "false" ? "无" : organization.parent.name,
-          children_name: organization.children?.to_s == "false" ? "无" : organization.children.map {|x| x.name}.join(","),
-        }
-      }
+      organization: OrganizationNode.all.map { |organization|  organization.controller_data }
     }
   end
 
   # 编辑组织机构
-  def edit_organization
+  def edit
     organization = OrganizationNode.find(params[:id])
-    @component_name = 'EditOrganizationPage'
+    @component_name = 'CreateUpdatePage'
     @component_data = {
-      id: organization.id.to_s,
-      name: organization.name,
-      code: organization.code,
-      submit_url: "/organizations/#{params[:id]}/update_organization",
-      organization_nodes: OrganizationNode.all.map { |node|
-        {
-          id: node.id.to_s,
-          name: node.name,
-        }
-      }
+      organization: organization.controller_data,
+      submit_url: organization_path(organization),
+      cancel_url: organizations_path,
+      organization_nodes: OrganizationNode.all.map { |node| node.controller_data }
     }
   end
 
   # 更新组织机构信息
-  def update_organization
+  def update
     organization = OrganizationNode.find(params[:id])
-    organization.update(name: params[:OrganizationNode][:name], code: params[:OrganizationNode][:code], parent_id: params[:OrganizationNode][:organizationId])
+    organization.update(organization_params)
     if organization.save
-      redirect_to "/organizations/organization_list"
+      redirect_to organizations_path
     else
       render json: "保存出错"
     end
@@ -105,14 +89,19 @@ class OrganizationsController < ApplicationController
   def destroy
     organization = OrganizationNode.find(params[:id])
     organization.destroy
-    redirect_to "/organizations/organization_list"
+    redirect_to organizations_path
   end
 
-  def organization_tree_show
+  def tree_show
     # 展现组织树状图
-    @component_name = 'OrganizationTreeShowPage'
+    @component_name = 'TreeShowPage'
     @component_data = {
       organizations:  OrganizationNode.where(depth:"0").all.to_a.map{|x| x.tree_data}
     } 
   end
+
+  private
+    def organization_params
+      params.require(:OrganizationNode).permit(:name, :code, :parent_id)
+    end
 end

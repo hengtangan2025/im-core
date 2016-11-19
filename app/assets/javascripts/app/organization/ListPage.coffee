@@ -1,6 +1,6 @@
 { Table, Button} = antd
 
-module.exports = OrganizationsManagerPage = React.createClass
+module.exports = ListPage = React.createClass
   render: ->
     columns = [
       {
@@ -25,7 +25,7 @@ module.exports = OrganizationsManagerPage = React.createClass
         dataIndex: "id"
         render: (record) =>
           <div>
-            <a className='ant-btn ant-btn-primary' href="/organizations/#{record}/edit_organization">
+            <a className='ant-btn ant-btn-primary' href="/organizations/#{record}/edit">
               编辑
             </a>
             <a className='ant-btn ant-btn-primary' onClick={@delete_relation.bind(this, record)}>
@@ -40,7 +40,7 @@ module.exports = OrganizationsManagerPage = React.createClass
       <a className='ant-btn ant-btn-primary' href="/organizations/new">
         新增机构
       </a>
-      <a className='ant-btn ant-btn-primary' href="/organizations/organization_tree_show">
+      <a className='ant-btn ant-btn-primary' href="/organizations/tree_show">
         查看树状结构
       </a>
       <Table columns={columns} dataSource={datas} pagination={false}/>

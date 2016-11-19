@@ -19,18 +19,11 @@ Rails.application.routes.draw do
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member
-    get :organization_list, on: :collection
-    get :edit_organization, on: :member
-    post :update_organization, on: :member
-    get :organization_tree_show, on: :collection
+    get :tree_show, on: :collection
   end
 
   resources :chat_messages do
     get :history, on: :collection
-  end
-
-  resources :users do
-    get :new, on: :collection
   end
 
   get '/chat/:oid', to: 'chat#show', as: :chat
