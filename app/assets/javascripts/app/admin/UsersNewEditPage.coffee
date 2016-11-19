@@ -17,7 +17,7 @@ Page = React.createClass
             {...formItemLayout}
             label="用户名"
           >
-          {getFieldDecorator('member[name]')(
+          {getFieldDecorator('member[name]', {initialValue: @props.user_data.name})(
             <Input className="form-input" placeholder="输入用户名" />
           )}
           </FormItem>
@@ -26,7 +26,7 @@ Page = React.createClass
             {...formItemLayout}
             label="邮箱"
           >
-          {getFieldDecorator('member[email]')(
+          {getFieldDecorator('user[email]',{initialValue: @props.user_data.email})(
             <Input className="form-input" placeholder="输入邮箱" />
           )}
           </FormItem>
@@ -35,7 +35,7 @@ Page = React.createClass
             {...formItemLayout}
             label="工号"
           >
-          {getFieldDecorator('member[job_number]')(
+          {getFieldDecorator('member[job_number]',{initialValue: @props.user_data.job_number})(
             <Input className="form-input" placeholder="输入工号" />
           )}
           </FormItem>
@@ -44,7 +44,7 @@ Page = React.createClass
             {...formItemLayout}
             label="所属机构"
           >
-          {getFieldDecorator('member[organization]')(
+          {getFieldDecorator('member[organization_node_ids]')(
             <Select
               multiple
               placeholder="请选择所属机构"
@@ -62,7 +62,7 @@ Page = React.createClass
             {...formItemLayout}
             label="密码"
           >
-          {getFieldDecorator('member[password]')(
+          {getFieldDecorator('user[password]')(
             <Input className="form-input" placeholder="输入密码" />
           )}
           </FormItem>
@@ -72,7 +72,7 @@ Page = React.createClass
               <FaIcon type='check' /> 确定
             </Button>
             <Button type="primary" htmlType="submit" className="form-button">
-              <FaIcon type='close' /> 取消
+              <FaIcon type='close' href="/members"/> 取消
             </Button>
           </FormItem>
 
@@ -83,9 +83,13 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
+    if @props.user_data.name == ''
+      method = 'POST'
+    else
+      method = 'PUT'
     submit_url = @props.submit_url
     jQuery.ajax
-      type: 'POST'
+      type: method
       url: submit_url
       data: data
 

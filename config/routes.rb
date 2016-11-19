@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   root to: 'index#index'
 
-  resources :members
+  
+  namespace :admin do
+    resources :users
+  end
+
 
   resources :organizations do
     get :trees, on: :collection

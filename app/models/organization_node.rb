@@ -112,4 +112,11 @@ class OrganizationNode
     }
   end
 
+  def controller_data
+    {
+      id: self.id.to_s,
+      name: self.name,
+    }
+  end
+
 end
