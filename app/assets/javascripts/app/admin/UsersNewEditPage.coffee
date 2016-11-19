@@ -10,14 +10,14 @@ Page = React.createClass
       labelCol: { span: 8 },
       wrapperCol: { span: 14 },
     }
-    <div className='member-edit-page'>
+    <div className='member-new-page'>
       <div className='member-form'>
         <Form onSubmit={@submit}>
           <FormItem 
             {...formItemLayout}
             label="用户名"
           >
-          {getFieldDecorator('member[name]', {initialValue: @props.name})(
+          {getFieldDecorator('member[name]', {initialValue: @props.user_data.name})(
             <Input className="form-input" placeholder="输入用户名" />
           )}
           </FormItem>
@@ -26,7 +26,7 @@ Page = React.createClass
             {...formItemLayout}
             label="邮箱"
           >
-          {getFieldDecorator('member[email]', {initialValue: @props.email})(
+          {getFieldDecorator('user[email]',{initialValue: @props.user_data.email})(
             <Input className="form-input" placeholder="输入邮箱" />
           )}
           </FormItem>
@@ -35,7 +35,7 @@ Page = React.createClass
             {...formItemLayout}
             label="工号"
           >
-          {getFieldDecorator('member[job_number]', {initialValue: @props.job_number})(
+          {getFieldDecorator('member[job_number]',{initialValue: @props.user_data.job_number})(
             <Input className="form-input" placeholder="输入工号" />
           )}
           </FormItem>
@@ -44,7 +44,7 @@ Page = React.createClass
             {...formItemLayout}
             label="所属机构"
           >
-          {getFieldDecorator('member[organization]')(
+          {getFieldDecorator('member[organization_node_ids]')(
             <Select
               multiple
               placeholder="请选择所属机构"
@@ -62,7 +62,7 @@ Page = React.createClass
             {...formItemLayout}
             label="密码"
           >
-          {getFieldDecorator('member[password]')(
+          {getFieldDecorator('user[password]')(
             <Input className="form-input" placeholder="输入密码" />
           )}
           </FormItem>
@@ -72,7 +72,7 @@ Page = React.createClass
               <FaIcon type='check' /> 确定
             </Button>
             <Button type="primary" htmlType="submit" className="form-button">
-              <FaIcon type='close' /> 取消
+              <FaIcon type='close' href="/members"/> 取消
             </Button>
           </FormItem>
 
@@ -83,10 +83,13 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-    submit_url = @props.submit_url
+    if @props.user_data.name == null
+      method = 'POST'
+    else
+      method = 'PUT'
     jQuery.ajax
-      type: 'PUT'
-      url: submit_url
+      type: method
+      url: @props.submit_url
       data: data
 
-module.exports = MembersEditPage = Form.create()(Page)
+module.exports = MembersNewPage = Form.create()(Page)

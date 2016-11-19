@@ -12,7 +12,7 @@ module.exports = TreeShowPage = React.createClass
   render: ->
     data = @props.organizations
     <div>
-       <a className='ant-btn ant-btn-primary' href="/organizations">
+       <a className='ant-btn ant-btn-primary' href="/admin/organizations">
         返回表格
       </a>
       <Tree>   

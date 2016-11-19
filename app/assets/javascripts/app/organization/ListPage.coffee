@@ -25,7 +25,7 @@ module.exports = ListPage = React.createClass
         dataIndex: "id"
         render: (record) =>
           <div>
-            <a className='ant-btn ant-btn-primary' href="/organizations/#{record}/edit">
+            <a className='ant-btn ant-btn-primary' href="/admin/organizations/#{record}/edit">
               编辑
             </a>
             <a className='ant-btn ant-btn-primary' onClick={@delete_relation.bind(this, record)}>
@@ -37,10 +37,10 @@ module.exports = ListPage = React.createClass
     datas = @props.organization
 
     <div> 
-      <a className='ant-btn ant-btn-primary' href="/organizations/new">
+      <a className='ant-btn ant-btn-primary' href="/admin/organizations/new">
         新增机构
       </a>
-      <a className='ant-btn ant-btn-primary' href="/organizations/tree_show">
+      <a className='ant-btn ant-btn-primary' href="/admin/organizations/tree_show">
         查看树状结构
       </a>
       <Table columns={columns} dataSource={datas} pagination={false}/>
@@ -48,7 +48,7 @@ module.exports = ListPage = React.createClass
 
   delete_relation: (id)->
     jQuery.ajax
-      url: "/organizations/#{id}",
+      url: "/admin/organizations/#{id}",
       method: "DELETE"
     .success (msg)->
       console.log msg

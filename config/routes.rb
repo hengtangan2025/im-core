@@ -14,12 +14,18 @@ Rails.application.routes.draw do
 
   root to: 'index#index'
 
-  resources :members
+  
+  namespace :admin do
+    resources :users
+    resources :organizations do
+      get :tree_show, on: :collection
+    end
+  end
+
 
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member
-    get :tree_show, on: :collection
   end
 
   resources :chat_messages do
