@@ -24,11 +24,10 @@ register require 'app/OrganizationsTreesPage'
 register require 'app/OrganizationTreePage'
 register require 'app/OrganizationNodeShow'
 
-register require 'app/OrganizationsManagerPage'
-register require 'app/OrganizationTreeShowPage'
+register require 'app/organization/ListPage'
+register require 'app/organization/TreeShowPage'
 
-register (require 'app/CreateOrganizationPage'), 'CreateOrganizationPage'
-register (require 'app/EditOrganizationPage'), 'EditOrganizationPage'
+register (require 'app/organization/CreateUpdatePage'), 'CreateUpdatePage'
 
 # chatroom
 register require 'app/chat/ChatCharAvatar'
@@ -37,7 +36,6 @@ register require 'app/chat/ChatPageChatRoom'
 register require 'app/chat/ChatPageCurrentUser'
 register require 'app/chat/ChatPage'
 
-# member 
-register require 'app/member/MembersIndexPage'
-register (require 'app/member/MembersNewPage'), 'MembersNewPage'
-register (require 'app/member/MembersEditPage'), 'MembersEditPage'
+# admin/user 
+register require 'app/admin/UsersIndexPage'
+register (require 'app/admin/UsersNewEditPage'), 'UsersNewEditPage'
