@@ -17,7 +17,7 @@ Page = React.createClass
             label="TAG名"
           >
           {getFieldDecorator('Tag[name]', {initialValue: @props.name})(
-            <Input className="form-input" disabled=true />
+            <Input className="form-input" placeholder="请输入 TAG 名" />
           )}
           </FormItem>
 
