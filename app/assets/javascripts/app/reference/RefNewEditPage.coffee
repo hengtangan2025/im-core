@@ -8,41 +8,58 @@ Page = React.createClass
     { getFieldDecorator } = @props.form
     formItemLayout = {
       labelCol: { span: 3 },
-      wrapperCol: { span: 14 },
     }
     <div className='user-new-page'>
       <div className='user-form'>
         <Form onSubmit={@submit}>
           <FormItem 
             {...formItemLayout}
-            label="机构名"
+            label="资料名"
           >
-          {getFieldDecorator('OrganizationNode[name]', {initialValue: @props.organization.name})(
-            <Input className="form-input" placeholder="输入机构名" />
+          {getFieldDecorator('References[name]', {initialValue: @props.references.name})(
+            <Input className="form-input" placeholder="输入资料名" />
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="机构编号"
+            label="资料描述"
           >
-          {getFieldDecorator('OrganizationNode[code]', {initialValue: @props.organization.code})(
-            <Input className="form-input" placeholder="输入机构编号" />
+          {getFieldDecorator('References[describe]', {initialValue: @props.references.describe})(
+            <Input className="form-textarea" placeholder="输入资料描述" type="textarea" rows={6} />
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="所属机构"
+            label="类型"
           >
-          {getFieldDecorator('OrganizationNode[parent_id]')(
+          {getFieldDecorator('References[kind]')(
             <Select
-              placeholder="请选择所属机构"
+              placeholder="请选择或输入类型"
               className="form-input"
             >
               {
-                for i in @props.organization_nodes
-                  <Option key={i.id}>{i.name}</Option>
+                for i in @props.references.kind
+                  <Option key={i}>{i}</Option>
+              }
+            </Select>
+          )}
+          </FormItem>
+
+          <FormItem 
+            {...formItemLayout}
+            label="关键词"
+          >
+          {getFieldDecorator('References[tags_name]')(
+            <Select
+              tags
+              placeholder="请选择或输入关键词"
+              className="form-input"
+            >
+              {
+                for i in @props.tags
+                  <Option key={i.name}>{i.name}</Option>
               }
             </Select>
           )}
@@ -64,7 +81,7 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-    if @props.organization.name == null
+    if @props.references.name == null
       jQuery.ajax
         type: 'POST'
         url: @props.submit_url
@@ -75,4 +92,4 @@ Page = React.createClass
         url: @props.submit_url
         data: data
 
-module.exports = CreateUpdatePage = Form.create()(Page)
+module.exports = RefNewEditPage = Form.create()(Page)

@@ -47,12 +47,14 @@ Page = React.createClass
           {getFieldDecorator('member[organization_node_ids]')(
             <Select
               multiple
+              tags
               placeholder="请选择所属机构"
               className="form-input"
+              onChange = {@test}
             >
               {
                 for i in [0..@props.organization_nodes.length - 1]
-                  <Option key={@props.organization_nodes[i].id}>{@props.organization_nodes[i].name}</Option>
+                  <Option key={@props.organization_nodes[i].name}>{@props.organization_nodes[i].name}</Option>
               }
             </Select>
           )}
@@ -71,14 +73,21 @@ Page = React.createClass
             <Button type="primary" htmlType="submit" className="form-button">
               <FaIcon type='check' /> 确定
             </Button>
-            <Button type="primary" htmlType="submit" className="form-button">
-              <FaIcon type='close' href="/members"/> 取消
-            </Button>
+            <a className='ant-btn ant-btn-primary' href="/admin/users">
+              <FaIcon type='close' /> 取消
+            </a>
           </FormItem>
 
         </Form>
       </div>
     </div>
+
+
+  test: (value)->
+    # 1 取到页面加载初始option时的数组
+    # 2 value.last 是否包含在那个数组里 如果不包含则
+    console.log value
+
 
   submit: (evt)->
     evt.preventDefault()
@@ -92,4 +101,5 @@ Page = React.createClass
       url: @props.submit_url
       data: data
 
-module.exports = MembersNewPage = Form.create()(Page)
+module.exports = UsersNewEditPage = Form.create()(Page)
+
