@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   }
 
   root to: 'index#index'
-
   
   namespace :admin do
     resources :users
@@ -24,15 +23,6 @@ Rails.application.routes.draw do
     resources :references
     resources :tags
   end
-
-  # FAQ
-  resources :faqs
-
-  # 参考资料
-  resources :references
-
-  # 标签
-  resources :tags
 
   resources :organizations do
     get :trees, on: :collection
