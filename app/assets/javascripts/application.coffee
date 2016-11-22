@@ -40,21 +40,14 @@ register require 'app/chat/ChatPage'
 register require 'app/admin/UsersIndexPage'
 register (require 'app/admin/UsersNewEditPage'), 'UsersNewEditPage'
 
-#tag
-register require 'app/tag/TagsIndexPage'
-
-#reference
-register require 'app/reference/ReferencesIndexPage'
-
-#faq
-register require 'app/faq/FaqsIndexPage'
-
 # FAQ
 register (require 'app/faq/NewAndEditPage'), 'NewAndEditPage'
+register require 'app/tag/TagsIndexPage'
 
 # Reference(参考资料)
 register (require 'app/reference/RefNewEditPage'), 'RefNewEditPage'
+register require 'app/reference/ReferencesIndexPage'
 
 # 标签
 register (require 'app/tag/EditPage'), 'EditPage'
->>>>>>> 43b911c46d2451bd2c663b6ce8e4558fc231b3e0
+register require 'app/faq/FaqsIndexPage'
