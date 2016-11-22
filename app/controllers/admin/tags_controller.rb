@@ -1,5 +1,12 @@
 class Admin::TagsController < ApplicationController
-  def new
+  def index
+    @component_name = 'TagsIndexPage'
+    @component_data = {
+      
+    }
+  end
+  
+  def edit
     chars = ("0".."9").to_a
     @component_name = 'EditPage'
     @component_data = {

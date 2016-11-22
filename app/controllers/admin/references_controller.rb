@@ -1,4 +1,11 @@
 class Admin::ReferencesController < ApplicationController
+  def index
+    @component_name = 'ReferencesIndexPage'
+    @component_data = {
+      
+    }
+  end
+  
   def new
     chars = ("0".."9").to_a
     @component_name = 'RefNewEditPage'
