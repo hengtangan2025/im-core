@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   }
 
   root to: 'index#index'
-
   
   namespace :admin do
     resources :users
@@ -21,7 +20,6 @@ Rails.application.routes.draw do
       get :tree_show, on: :collection
     end
   end
-
 
   resources :organizations do
     get :trees, on: :collection

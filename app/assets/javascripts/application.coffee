@@ -39,3 +39,12 @@ register require 'app/chat/ChatPage'
 # admin/user 
 register require 'app/admin/UsersIndexPage'
 register (require 'app/admin/UsersNewEditPage'), 'UsersNewEditPage'
+
+#tag
+register require 'app/tag/TagsIndexPage'
+
+#reference
+register require 'app/reference/ReferencesIndexPage'
+
+#faq
+register require 'app/faq/FaqsIndexPage'
