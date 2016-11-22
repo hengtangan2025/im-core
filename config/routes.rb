@@ -20,8 +20,19 @@ Rails.application.routes.draw do
     resources :organizations do
       get :tree_show, on: :collection
     end
+    resources :faqs
+    resources :references
+    resources :tags
   end
 
+  # FAQ
+  resources :faqs
+
+  # 参考资料
+  resources :references
+
+  # 标签
+  resources :tags
 
   resources :organizations do
     get :trees, on: :collection

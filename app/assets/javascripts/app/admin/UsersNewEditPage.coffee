@@ -47,6 +47,7 @@ Page = React.createClass
           {getFieldDecorator('member[organization_node_ids]')(
             <Select
               multiple
+              tags
               placeholder="请选择所属机构"
               className="form-input"
             >
@@ -71,9 +72,9 @@ Page = React.createClass
             <Button type="primary" htmlType="submit" className="form-button">
               <FaIcon type='check' /> 确定
             </Button>
-            <Button type="primary" htmlType="submit" className="form-button">
-              <FaIcon type='close' href="/members"/> 取消
-            </Button>
+            <a className='ant-btn ant-btn-primary' href="/admin/users">
+              <FaIcon type='close' /> 取消
+            </a>
           </FormItem>
 
         </Form>
@@ -92,4 +93,4 @@ Page = React.createClass
       url: @props.submit_url
       data: data
 
-module.exports = MembersNewPage = Form.create()(Page)
+module.exports = UsersNewEditPage = Form.create()(Page)

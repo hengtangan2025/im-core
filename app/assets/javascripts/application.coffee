@@ -39,3 +39,12 @@ register require 'app/chat/ChatPage'
 # admin/user 
 register require 'app/admin/UsersIndexPage'
 register (require 'app/admin/UsersNewEditPage'), 'UsersNewEditPage'
+
+# FAQ
+register (require 'app/faq/NewAndEditPage'), 'NewAndEditPage'
+
+# Reference(参考资料)
+register (require 'app/reference/RefNewEditPage'), 'RefNewEditPage'
+
+# 标签
+register (require 'app/tag/EditPage'), 'EditPage'

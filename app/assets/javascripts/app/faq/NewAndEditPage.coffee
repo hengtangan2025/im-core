@@ -8,40 +8,58 @@ Page = React.createClass
     { getFieldDecorator } = @props.form
     formItemLayout = {
       labelCol: { span: 3 },
-      wrapperCol: { span: 14 },
     }
     <div className='user-new-page'>
       <div className='user-form'>
         <Form onSubmit={@submit}>
           <FormItem 
             {...formItemLayout}
-            label="机构名"
+            label="问题"
           >
-          {getFieldDecorator('OrganizationNode[name]', {initialValue: @props.organization.name})(
-            <Input className="form-input" placeholder="输入机构名" />
+          {getFieldDecorator('Faq[name]', {initialValue: @props.questions.name})(
+            <Input className="form-textarea" placeholder="输入问题" type="textarea" rows={6}/>
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="机构编号"
+            label="解答"
           >
-          {getFieldDecorator('OrganizationNode[code]', {initialValue: @props.organization.code})(
-            <Input className="form-input" placeholder="输入机构编号" />
+          {getFieldDecorator('Faq[answer]', {initialValue: @props.questions.answer})(
+            <Input className="form-textarea" placeholder="输入答案" type="textarea" rows={6} />
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="所属机构"
+            label="参考资料"
           >
-          {getFieldDecorator('OrganizationNode[parent_id]')(
+          {getFieldDecorator('Faq[reference_ids]')(
             <Select
-              placeholder="请选择所属机构"
+              tags
+              placeholder="请选择或输入参考资料"
               className="form-input"
             >
               {
-                for i in @props.organization_nodes
+                for i in @props.references
+                  <Option key={i.id}>{i.name}</Option>
+              }
+            </Select>
+          )}
+          </FormItem>
+
+          <FormItem 
+            {...formItemLayout}
+            label="关键词"
+          >
+          {getFieldDecorator('Faq[tag_ids]')(
+            <Select
+              tags
+              placeholder="请选择或输入关键词"
+              className="form-input"
+            >
+              {
+                for i in @props.tags
                   <Option key={i.id}>{i.name}</Option>
               }
             </Select>
@@ -64,7 +82,7 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-    if @props.organization.name == null
+    if @props.questions.name == null
       jQuery.ajax
         type: 'POST'
         url: @props.submit_url
@@ -75,4 +93,4 @@ Page = React.createClass
         url: @props.submit_url
         data: data
 
-module.exports = CreateUpdatePage = Form.create()(Page)
+module.exports = NewAndEditPage = Form.create()(Page)
