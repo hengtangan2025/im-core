@@ -1,5 +1,5 @@
 class Admin::TagsController < ApplicationController
-  def edit
+  def new
     chars = ("0".."9").to_a
     @component_name = 'EditPage'
     @component_data = {

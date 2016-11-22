@@ -36,7 +36,7 @@ Page = React.createClass
           >
           {getFieldDecorator('Faq[reference_ids]')(
             <Select
-              tags
+              multiple
               placeholder="请选择或输入参考资料"
               className="form-input"
             >

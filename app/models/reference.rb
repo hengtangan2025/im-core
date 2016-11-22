@@ -25,7 +25,7 @@ class Reference
       if !Tag.where(:name => tag).present?
         Tag.create(:name => tag).id
       else
-        Tag.find(:name => tag).id
+        Tag.where(:name => tag).first.id
       end
     end
   end
