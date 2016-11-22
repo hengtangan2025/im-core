@@ -48,3 +48,13 @@ register require 'app/reference/ReferencesIndexPage'
 
 #faq
 register require 'app/faq/FaqsIndexPage'
+
+# FAQ
+register (require 'app/faq/NewAndEditPage'), 'NewAndEditPage'
+
+# Reference(参考资料)
+register (require 'app/reference/RefNewEditPage'), 'RefNewEditPage'
+
+# 标签
+register (require 'app/tag/EditPage'), 'EditPage'
+>>>>>>> 43b911c46d2451bd2c663b6ce8e4558fc231b3e0

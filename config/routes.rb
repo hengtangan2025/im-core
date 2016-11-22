@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :organizations do
       get :tree_show, on: :collection
     end
+    resources :faqs
+    resources :references
+    resources :tags
   end
 
   resources :organizations do
