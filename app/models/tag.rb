@@ -56,4 +56,17 @@ class Tag
       faq.save
     end
   end
+
+  def controller_data
+    {
+      id: self.id.to_s,
+      name: self.name,
+      faqs: self.faqs.map{ |faq|
+        faq.question
+      }.join(","),
+      references: self.refs.map{|ref|
+        ref.name
+      }.join(",")
+    }
+  end
 end

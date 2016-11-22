@@ -28,4 +28,18 @@ class Faq
     end
   end
 
+  def controller_data
+    {
+      id: self.id.to_s,
+      question: self.question,
+      answer: self.answer,
+      references: self.reference_ids.map{ |r|
+        Reference.find(r).name
+      }.join(","),
+
+      tags: self.tag_ids.map{ |t|
+        Tag.find(t).name
+      }.join(",")
+    }
+  end
 end

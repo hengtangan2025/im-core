@@ -20,39 +20,28 @@ module.exports = TagsIndexPage = React.createClass
         dataIndex: "id"
         render: (record) =>
           <div>
-            <a className='ant-btn ant-btn-primary' href="#">
+            <a className='ant-btn ant-btn-primary' href="/admin/tags/#{record}/edit">
               编辑
             </a>
-            <a className='ant-btn ant-btn-primary' href="#">
+            <a className='ant-btn ant-btn-primary' href="#" onClick={@delete.bind(this, record)}>
               删除
             </a>
           </div>
       }
     ]
 
-    data = [
-      {
-        name: "TAG1",
-        faqs: "FAQ1, FAQ2",
-        references: "资料1，资料2",
-        id: "",
-      },
-      {
-        name: "TAG2",
-        faqs: "FAQ2, FAQ3",
-        references: "资料2，资料3",
-        id: "",
-      }
-    ]
+    data = @props.tags
 
 
     <div className='sample-tags-table'>
       <Table columns={columns} dataSource={data} pagination={false} size='small' />
     </div>
 
-  delete: (data)->
+  delete: (id)->
     jQuery.ajax
       type: 'DELETE'
-      url: "XXXXX"
-    .done (res)->
-      console.log(res.message)
+      url: "/admin/tags/#{id}"
+    .success (msg)->
+      console.log "删除成功"
+    .error (msg)->
+      console.log "删除失败"

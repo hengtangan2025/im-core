@@ -16,7 +16,7 @@ Page = React.createClass
             {...formItemLayout}
             label="问题"
           >
-          {getFieldDecorator('Faq[name]', {initialValue: @props.questions.name})(
+          {getFieldDecorator('Faq[question]', {initialValue: @props.faqs.question})(
             <Input className="form-textarea" placeholder="输入问题" type="textarea" rows={6}/>
           )}
           </FormItem>
@@ -25,7 +25,7 @@ Page = React.createClass
             {...formItemLayout}
             label="解答"
           >
-          {getFieldDecorator('Faq[answer]', {initialValue: @props.questions.answer})(
+          {getFieldDecorator('Faq[answer]', {initialValue: @props.faqs.answer})(
             <Input className="form-textarea" placeholder="输入答案" type="textarea" rows={6} />
           )}
           </FormItem>
@@ -52,7 +52,7 @@ Page = React.createClass
             {...formItemLayout}
             label="关键词"
           >
-          {getFieldDecorator('Faq[tag_ids]')(
+          {getFieldDecorator('Faq[tags_name]')(
             <Select
               tags
               placeholder="请选择或输入关键词"
@@ -60,7 +60,7 @@ Page = React.createClass
             >
               {
                 for i in @props.tags
-                  <Option key={i.id}>{i.name}</Option>
+                  <Option key={i.name}>{i.name}</Option>
               }
             </Select>
           )}
@@ -82,7 +82,7 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-    if @props.questions.name == null
+    if @props.faqs.question == null
       jQuery.ajax
         type: 'POST'
         url: @props.submit_url

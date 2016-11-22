@@ -34,15 +34,14 @@ Page = React.createClass
             {...formItemLayout}
             label="类型"
           >
-          {getFieldDecorator('References[ref_type]')(
+          {getFieldDecorator('References[kind]')(
             <Select
-              tags
               placeholder="请选择或输入类型"
               className="form-input"
             >
               {
-                for i in @props.references.ref_type
-                  <Option key={i.name}>{i.name}</Option>
+                for i in @props.references.kind
+                  <Option key={i}>{i}</Option>
               }
             </Select>
           )}
@@ -52,7 +51,7 @@ Page = React.createClass
             {...formItemLayout}
             label="关键词"
           >
-          {getFieldDecorator('Faq[tag_ids]')(
+          {getFieldDecorator('References[tags_name]')(
             <Select
               tags
               placeholder="请选择或输入关键词"
@@ -82,7 +81,7 @@ Page = React.createClass
   submit: (evt)->
     evt.preventDefault()
     data = @props.form.getFieldsValue()
-    if @props.questions.name == null
+    if @props.references.name == null
       jQuery.ajax
         type: 'POST'
         url: @props.submit_url

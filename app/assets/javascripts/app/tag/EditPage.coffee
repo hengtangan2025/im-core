@@ -16,7 +16,7 @@ Page = React.createClass
             {...formItemLayout}
             label="TAG名"
           >
-          {getFieldDecorator('Tag[name]', {initialValue: @props.name})(
+          {getFieldDecorator('Tag[name]', {initialValue: @props.tags.name})(
             <Input className="form-input" placeholder="请输入 TAG 名" />
           )}
           </FormItem>
@@ -33,7 +33,7 @@ Page = React.createClass
             >
               {
                 for i in @props.faqs
-                  <Option key={i.name}>{i.name}</Option>
+                  <Option key={i.id}>{i.question}</Option>
               }
             </Select>
           )}
@@ -43,7 +43,7 @@ Page = React.createClass
             {...formItemLayout}
             label="关联资料"
           >
-          {getFieldDecorator('Tag[ref_ids]')(
+          {getFieldDecorator('Tag[reference_ids]')(
             <Select
               multiple
               placeholder="请选择或输入关联资料"
@@ -51,7 +51,7 @@ Page = React.createClass
             >
               {
                 for i in @props.references
-                  <Option key={i.name}>{i.name}</Option>
+                  <Option key={i.id}>{i.name}</Option>
               }
             </Select>
           )}
@@ -72,6 +72,7 @@ Page = React.createClass
 
   submit: (evt)->
     evt.preventDefault()
+    console.log @props.submit_url
     data = @props.form.getFieldsValue()
     jQuery.ajax
       type: 'PUT'
