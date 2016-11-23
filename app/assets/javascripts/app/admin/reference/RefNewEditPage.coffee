@@ -5,6 +5,10 @@ Option = Select.Option
 
 Page = React.createClass
   render: ->
+    tag_ary = []
+    for tag in @props.references.tags
+      tag_ary.push(tag.name)
+
     { getFieldDecorator } = @props.form
     formItemLayout = {
       labelCol: { span: 3 },
@@ -14,35 +18,44 @@ Page = React.createClass
         <Form onSubmit={@submit}>
           <FormItem 
             {...formItemLayout}
-            label="问题"
+            label="资料名"
           >
-          {getFieldDecorator('Faq[question]', {initialValue: @props.faqs.question})(
-            <Input className="form-textarea" placeholder="输入问题" type="textarea" rows={6}/>
+          {getFieldDecorator('References[name]', {
+            rules: [{
+              required: true, message: '请输入资料名',
+            }],
+            initialValue: @props.references.name
+          })(
+            <Input className="form-input" placeholder="输入资料名" />
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="解答"
+            label="资料描述"
           >
-          {getFieldDecorator('Faq[answer]', {initialValue: @props.faqs.answer})(
-            <Input className="form-textarea" placeholder="输入答案" type="textarea" rows={6} />
+          {getFieldDecorator('References[describe]', {initialValue: @props.references.describe})(
+            <Input className="form-textarea" placeholder="输入资料描述" type="textarea" rows={6} />
           )}
           </FormItem>
 
           <FormItem 
             {...formItemLayout}
-            label="参考资料"
+            label="类型"
           >
-          {getFieldDecorator('Faq[reference_ids]')(
+          {getFieldDecorator('References[kind]', {
+            rules: [{
+              required: true, message: '请输入类型',
+            }],
+            initialValue: @props.references.kind
+          })(
             <Select
-              multiple
-              placeholder="请选择或输入参考资料"
+              placeholder="请选择或输入类型"
               className="form-input"
             >
               {
-                for i in @props.references
-                  <Option key={i.id}>{i.name}</Option>
+                for i in @props.references.all_kind
+                  <Option key={i}>{i}</Option>
               }
             </Select>
           )}
@@ -52,7 +65,7 @@ Page = React.createClass
             {...formItemLayout}
             label="关键词"
           >
-          {getFieldDecorator('Faq[tags_name]')(
+          {getFieldDecorator('References[tags_name]', {initialValue: tag_ary})(
             <Select
               tags
               placeholder="请选择或输入关键词"
@@ -81,8 +94,12 @@ Page = React.createClass
 
   submit: (evt)->
     evt.preventDefault()
+    this.props.form.validateFields (err, values)->
+      if !err
+        console.log('Received values of form: ', values)
+
     data = @props.form.getFieldsValue()
-    if @props.faqs.question == null
+    if @props.references.name == null
       jQuery.ajax
         type: 'POST'
         url: @props.submit_url
@@ -93,4 +110,4 @@ Page = React.createClass
         url: @props.submit_url
         data: data
 
-module.exports = NewAndEditPage = Form.create()(Page)
+module.exports = RefNewEditPage = Form.create()(Page)

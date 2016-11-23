@@ -33,8 +33,19 @@ module.exports = ReferencesIndexPage = React.createClass
           </div>
       }
     ]
+    data = []
+    for ref in @props.references
+      tag_s = ''
+      for t in ref.tags
+        tag_s += "#{t.name},"
 
-    data = @props.references
+      data.push({
+        name: ref.name,
+        describe: ref.describe,
+        kind: ref.kind,
+        tags: tag_s.substring(0, tag_s.length - 1),
+        id: ref.id
+      })
 
     <div className='sample-references-table'>
       <a className='ant-btn ant-btn-primary' href={@props.new_url}>新增参考资料</a>

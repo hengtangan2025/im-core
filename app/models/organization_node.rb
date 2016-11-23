@@ -12,7 +12,7 @@ class OrganizationNode
   after_create :save_code
   before_destroy :delete_relation
   
-
+  validates :name, :code, presence: true
   # 用于 controller 中
   def controller_data
     {
@@ -20,7 +20,8 @@ class OrganizationNode
       name: self.name,
       code: self.code,
       parents_name:  self.parent?.to_s == "false" ? "无" : self.parent.name,
-      children_name: self.children?.to_s == "false" ? "无" : self.children.map {|x| x.name}.join(","),
+      parents_id: self.parent_id.to_s,
+      children_name: self.children?.to_s == "false" ? "无" : self.children.map(&:name),
     }
   end
 
@@ -36,6 +37,7 @@ class OrganizationNode
   def delete_relation
     self.children.each do |c|
       c.parent_id = nil
+      c.save
     end
   end
 

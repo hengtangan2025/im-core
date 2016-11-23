@@ -42,5 +42,7 @@ class User
 
   field :login, type: String
 
+  validates :email, :password, presence: true
+
   has_one :member
 end

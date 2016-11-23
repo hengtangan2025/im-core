@@ -34,7 +34,19 @@ module.exports = ListPage = React.createClass
           </div>
       }
     ]
-    datas = @props.organization
+    datas = []
+    for org in  @props.organization
+      down_org_s = ''
+      for c in org.children_name
+        down_org_s += "#{c}，"
+
+      datas.push({
+        name: org.name,
+        code: org.code,
+        parents_name: org.parents_name,
+        children_name: down_org_s.substring(0, down_org_s.length - 1),
+        id: org.id
+      })
 
     <div> 
       <a className='ant-btn ant-btn-primary' href="/admin/organizations/new">

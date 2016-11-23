@@ -17,7 +17,12 @@ Page = React.createClass
             {...formItemLayout}
             label="机构名"
           >
-          {getFieldDecorator('OrganizationNode[name]', {initialValue: @props.organization.name})(
+          {getFieldDecorator('OrganizationNode[name]', {
+            rules: [{
+              required: true, message: '请输入机构名',
+            }],
+            initialValue: @props.organization.name
+          })(
             <Input className="form-input" placeholder="输入机构名" />
           )}
           </FormItem>
@@ -26,7 +31,12 @@ Page = React.createClass
             {...formItemLayout}
             label="机构编号"
           >
-          {getFieldDecorator('OrganizationNode[code]', {initialValue: @props.organization.code})(
+          {getFieldDecorator('OrganizationNode[code]', {
+            rules: [{
+              required: true, message: '请输入机构编号',
+            }],
+            initialValue: @props.organization.code
+          })(
             <Input className="form-input" placeholder="输入机构编号" />
           )}
           </FormItem>
@@ -35,7 +45,7 @@ Page = React.createClass
             {...formItemLayout}
             label="所属机构"
           >
-          {getFieldDecorator('OrganizationNode[parent_id]')(
+          {getFieldDecorator('OrganizationNode[parent_id]', {initialValue: @props.organization.parents_id})(
             <Select
               placeholder="请选择所属机构"
               className="form-input"
@@ -63,6 +73,10 @@ Page = React.createClass
 
   submit: (evt)->
     evt.preventDefault()
+    this.props.form.validateFields (err, values)->
+      if !err
+        console.log('Received values of form: ', values)
+        
     data = @props.form.getFieldsValue()
     if @props.organization.name == null
       jQuery.ajax

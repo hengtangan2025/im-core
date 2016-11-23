@@ -9,6 +9,8 @@ class Reference
   field :describe, type: String
   field :kind, type: String
 
+  validates :name, :kind, presence: true
+
   KINDS = ["文章", "文档", "视频", "链接"]
   enumerize :kind, in: KINDS
   
@@ -38,21 +40,20 @@ class Reference
       name: self.name,
       describe: self.describe,
       kind: self.kind,
-      tags: self.tag_ids.map{ |t|
-        Tag.find(t).name
-      }.join(",")
+      all_kind: KINDS,
+      tags: self.tags.map{ |tag|
+        tag.simple_controller_data
+      }
     }
   end
 
-  def display_data
+  def simple_controller_data
     {
       id: self.id.to_s,
       name: self.name,
       describe: self.describe,
-      kind: KINDS,
-      tags: self.tag_ids.map{ |t|
-        Tag.find(t).name
-      }.join(",")
+      kind: self.kind
     }
   end
+
 end
