@@ -110,6 +110,9 @@ Page = React.createClass
         console.log('Received values of form: ', values)
         
     data = @props.form.getFieldsValue()
+    if data["member[organization_node_ids]"].length == 0
+      data["member[organization_node_ids]"] = [""]
+
     if @props.user_data.name == null
       method = 'POST'
     else
