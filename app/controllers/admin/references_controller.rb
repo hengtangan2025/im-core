@@ -11,7 +11,7 @@ class Admin::ReferencesController < ApplicationController
     reference = Reference.new
     @component_name = 'RefNewEditPage'
     @component_data = {
-      references: reference.display_data,
+      references: reference.controller_data,
       tags: Tag.all.map { |tag| tag.controller_data },
       submit_url: admin_references_path,
       cancel_url: admin_references_path,
@@ -31,7 +31,7 @@ class Admin::ReferencesController < ApplicationController
     reference = Reference.find(params[:id])
     @component_name = 'RefNewEditPage'
     @component_data = {
-      references: reference.display_data,
+      references: reference.controller_data,
       tags: Tag.all.map { |tag| tag.controller_data },
       submit_url: admin_reference_path(reference),
       cancel_url: admin_references_path,

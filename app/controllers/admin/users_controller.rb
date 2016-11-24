@@ -48,7 +48,7 @@ class Admin::UsersController < ApplicationController
     member = Member.find(params[:id])
     member.update(member_params)
     member.user.update(user_params)
-    if member.save
+    if member.save &&  member.user.save
       redirect_to admin_users_path
     else
       render json: "修改失败"

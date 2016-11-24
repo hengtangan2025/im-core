@@ -29,8 +29,20 @@ module.exports = UsersIndexPage = React.createClass
           </div>
       }
     ]
+    data = []
+    for i in @props.users
+      org_node_s = ''
+      for j in i.organization_nodes
+        org_node_s += "#{j.name}，"
 
-    data = @props.users
+      data.push({
+        name: i.name,
+        email: i.email,
+        job_number: i.job_number,
+        organization_nodes:org_node_s.substring(0, org_node_s.length - 1),
+        id: i.id
+      })
+
 
     <div className='sample-users-table'>
       <Button type="primary"><a href={@props.new_url}>新增用户</a></Button>
