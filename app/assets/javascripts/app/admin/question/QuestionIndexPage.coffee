@@ -37,24 +37,31 @@ module.exports = QuestionIndexPage = React.createClass
     #     answer: question_s,
     #     id: i.id
     #   })
-    data = [
-      {
-        content: "中国有几个直辖市？",
-        kind: "单选",
-        answer: "3个，4个，5个，6个",
-        id: "11111111"
-      },{
-        content: "下列哪个是直辖市？",
-        kind: "多选",
-        answer: "北京，广州，深圳，上海，",
-        id: "222222222"
-      },{
-        content: "天津市是沿海城市吗？",
-        kind: "判断题",
-        answer: "对，错",
-        id: "3333333333"
-      }
-    ]
+    data = []
+    for i in @props.questions
+      kind_s = ''
+      answer_s = ''
+      if i.kind == "single_choice"
+        kind_s = "单选题"
+      if i.kind == "multi_choice"
+        kind_s = "多选题"
+      if i.kind == "bool"
+        kind_s = "判断题"
+
+      if i.answer instanceof Array
+        for j in i.answer
+          answer_s += "#{j}，"
+        answer_s = answer_s.substring(0, answer_s.length - 1)
+      else
+        answer_s = i.answer
+
+      data.push({
+        content: i.content,
+        kind: kind_s,
+        answer: answer_s
+      })
+
+      
 
     <div className='sample-users-table'>
       <div className="admin-tag-a">

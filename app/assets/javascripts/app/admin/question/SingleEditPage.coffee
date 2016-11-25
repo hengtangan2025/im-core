@@ -8,6 +8,7 @@ Page = React.createClass
   getInitialState: ()->
     radio_count: 4
     value: 1
+    input_ary: []
 
   render: ->
     { getFieldDecorator } = @props.form
@@ -20,7 +21,6 @@ Page = React.createClass
       },
     }
 
-
     radio_data =
       on_change: @onChange
       del_radio: @delete_radio
@@ -28,6 +28,7 @@ Page = React.createClass
       radio_count: @state.radio_count
       value: @state.value
 
+    console.log @state.input_ary
 
     <div className='user-new-page'>
       <div className='user-form'>
@@ -36,7 +37,7 @@ Page = React.createClass
             {...formItemLayout}
             label="问题"
           >
-          {getFieldDecorator('Questions[name]', {
+          {getFieldDecorator('Questions[content]', {
             rules: [{
               required: true, message: '请输入问题'
             }]
@@ -63,7 +64,17 @@ Page = React.createClass
             {...tailFormItemLayout}
           >
           {getFieldDecorator('Questions[answer]')(
-            <RadioEvent data={radio_data} />
+            <RadioGroup onChange={@state.on_change}>
+              { 
+                for i in [1..@state.radio_count]
+                  <div key={i}>
+                    <Radio  className="radio-event-style" key="#{i}"  value={i}>
+                    </Radio>
+                    <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change}/>
+                    <a href="javascript:;" onClick={@delete_radio.bind(null, this)}>删除选项</a>
+                  </div>
+              }
+            </RadioGroup>
           )}
           </FormItem>
 
@@ -94,47 +105,65 @@ Page = React.createClass
       value: e.target.value,
     })
 
+  input_on_change: (e)->
+    data = @state.input_ary
+    if data.length == 0
+      data.push(e.target.value)
+    else
+      for i in [0..data.length - 1]
+        if data.indexOf(e.target.value) == -1
+          data.push(e.target.value)
+
+    @setState
+      input_ary:data
+
+
   add_radio_event: ()->
     @setState
       radio_count: @state.radio_count + 1
 
   delete_radio: (data)->
-    @setState
-      radio_count: data
+    if @state.radio_count > 1
+      data = @state.radio_count - 1
+      @setState
+        radio_count: data
 
   submit: (evt)->
     evt.preventDefault()
     this.props.form.validateFields (err, values)->
       if !err
         console.log('Received values of form: ', values)
-        
-    # data = @props.form.getFieldsValue()
-    # if @props.questions.name == null
-    #   jQuery.ajax
-    #     type: 'POST'
-    #     url: @props.submit_url
-    #     data: data
-    # else
-    #   jQuery.ajax
-    #     type: 'PUT'
-    #     url: @props.submit_url
-    #     data: data
 
-RadioEvent = React.createClass
-  render: ->
-    <RadioGroup onChange={@props.data.on_change}>
-      { 
-        for i in [1..@props.data.radio_count]
-          <Radio  className="radio-event-style" key="#{i}"  value={i}>
-            <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" rows={6} />
-            <a href="javascript:;" onClick={@del_radio_event.bind(null, this)}>删除选项</a>
-          </Radio>
-      }
-    </RadioGroup>
+    data = @props.form.getFieldsValue()
+    console.log data
+    if @props.questions.content == null
+      jQuery.ajax
+        type: 'POST'
+        url: @props.cancel_url
+        data: data
+    else
+      jQuery.ajax
+        type: 'PUT'
+        url: @props.cancel_url
+        data: data
 
-  del_radio_event: ()->
-    if @props.data.radio_count > 1
-      data = @props.data.radio_count - 1
-      @props.data.del_radio(data)
+# RadioEvent = React.createClass
+#   render: ->
+#     <RadioGroup onChange={@props.data.on_change}>
+#       { 
+#         for i in [1..@props.data.radio_count]
+#           <div key={i}>
+#             <Radio  className="radio-event-style" key="#{i}"  value={i}>
+#             </Radio>
+#             <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" rows={6} id="Questions[answer][]"/>
+#             <a href="javascript:;" onClick={@del_radio_event.bind(null, this)}>删除选项</a>
+#           </div>
+#       }
+#     </RadioGroup>
+
+#   del_radio_event: ()->
+#     if @props.data.radio_count > 1
+#       data = @props.data.radio_count - 1
+#       @props.data.del_radio(data)
 
 module.exports = SingleEditPage = Form.create()(Page)
