@@ -20,23 +20,11 @@ module.exports = QuestionIndexPage = React.createClass
         dataIndex: "id"
         render: (record) =>
           <div className="admin-option-tag-a">
-            <a className='ant-btn ant-btn-primary' href="#">编辑</a>
+            <a className='ant-btn ant-btn-primary' href="/admin/questions/#{record}/edit">编辑</a>
             <a className='ant-btn ant-btn-primary' href="#" onClick={@delete.bind(this, record)} >删除</a>
           </div>
       }
     ]
-    # data = []
-    # for i in @props.questions
-    #   question_s = ''
-    #   for j in i.answer
-    #     question_s += "#{j}，"
-
-    #   data.push({
-    #     content: i.content,
-    #     kind: i.kind,
-    #     answer: question_s,
-    #     id: i.id
-    #   })
     data = []
     for i in @props.questions
       kind_s = ''
@@ -48,17 +36,24 @@ module.exports = QuestionIndexPage = React.createClass
       if i.kind == "bool"
         kind_s = "判断题"
 
-      if i.answer instanceof Array
-        for j in i.answer
-          answer_s += "#{j}，"
+      if i.answer.choice != undefined
+        for j in i.answer.choice
+          answer_s += "#{j.text}，"
         answer_s = answer_s.substring(0, answer_s.length - 1)
+
+      else if i.answer == true || i.answer == false
+        if i.answer == true
+          answer_s = "对"
+        else
+          answer_s = "错"
       else
         answer_s = i.answer
 
       data.push({
         content: i.content,
         kind: kind_s,
-        answer: answer_s
+        answer: answer_s,
+        id: i.id
       })
 
       
@@ -75,7 +70,7 @@ module.exports = QuestionIndexPage = React.createClass
   delete: (data)->
     jQuery.ajax
       type: 'DELETE'
-      url: "#"
+      url: "/admin/questions/#{data}"
     .done (res)->
       console.log(res.message)
 

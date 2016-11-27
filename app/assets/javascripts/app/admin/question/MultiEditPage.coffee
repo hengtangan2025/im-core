@@ -32,10 +32,11 @@ Page = React.createClass
             {...formItemLayout}
             label="问题"
           >
-          {getFieldDecorator('Questions[name]', {
+          {getFieldDecorator('Questions[content]', {
             rules: [{
               required: true, message: '请输入问题'
-            }]
+            }],
+            initialValue: @props.questions.content
           })(
             <Input className="form-textarea" placeholder="请输入问题" type="textarea" rows={6} />
           )}

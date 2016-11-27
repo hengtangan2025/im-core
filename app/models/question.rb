@@ -15,9 +15,19 @@ class Question
 
   def controller_data
     {
+      id: self.id.to_s,
       kind: self.kind,
       content: self.content,
       answer: self.answer,
+    }
+  end
+
+  def bool_controller_data
+    {
+      id: self.id.to_s,
+      kind: self.kind,
+      content: self.content,
+      answer: true,
     }
   end
 end

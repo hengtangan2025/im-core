@@ -28,10 +28,11 @@ Page = React.createClass
             {...formItemLayout}
             label="问题"
           >
-          {getFieldDecorator('Questions[name]', {
+          {getFieldDecorator('Questions[content]', {
             rules: [{
               required: true, message: '请输入问题'
-            }]
+            }],
+            initialValue: @props.questions.content
           })(
             <Input className="form-textarea" placeholder="请输入问题" type="textarea" rows={6} />
           )}
@@ -55,8 +56,10 @@ Page = React.createClass
             {...formItemLayout}
             label="答案对错: "
           >
-          {getFieldDecorator('Questions[answer]')(
-            <Switch defaultChecked=true checkedChildren={'对'} unCheckedChildren={'错'} />
+          {getFieldDecorator('Questions[answer]', { 
+            initialValue: @props.questions.answer 
+          })(
+            <Switch defaultChecked={@props.questions.answer} checkedChildren={'对'} unCheckedChildren={'错'} />
           )}
           </FormItem>
 
@@ -81,16 +84,19 @@ Page = React.createClass
       if !err
         console.log('Received values of form: ', values)
         
-    # data = @props.form.getFieldsValue()
-    # if @props.questions.name == null
-    #   jQuery.ajax
-    #     type: 'POST'
-    #     url: @props.submit_url
-    #     data: data
-    # else
-    #   jQuery.ajax
-    #     type: 'PUT'
-    #     url: @props.submit_url
-    #     data: data
+    data = @props.form.getFieldsValue()
+    if data["Questions[kind]"] == "判断"
+      data["Questions[kind]"] = "bool"
+
+    if @props.questions.content == null
+      jQuery.ajax
+        type: 'POST'
+        url: @props.submit_url
+        data: data
+    else
+      jQuery.ajax
+        type: 'PUT'
+        url: @props.submit_url
+        data: data
 
 module.exports = BoolEditPage = Form.create()(Page)
