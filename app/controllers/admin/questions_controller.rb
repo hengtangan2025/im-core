@@ -16,7 +16,7 @@ class Admin::QuestionsController < ApplicationController
     choice_count = 0
     @component_name = "SingleEditPage"
     @component_data = {
-      questions: question.controller_data,
+      questions: question.single_controller_data,
       submit_url: admin_questions_path,
       cancel_url: admin_questions_path,
       choice_count: 4,

@@ -30,4 +30,16 @@ class Question
       answer: true,
     }
   end
+
+  def single_controller_data
+    {
+      id: self.id.to_s,
+      kind:self.kind,
+      content: self.content,
+      answer: {
+        choice: [],
+        correct: 1
+      }
+    }
+  end
 end

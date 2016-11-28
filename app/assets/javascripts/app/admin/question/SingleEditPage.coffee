@@ -7,8 +7,8 @@ RadioGroup = Radio.Group
 Page = React.createClass
   getInitialState: ()->
     radio_count: @props.choice_count
-    value: 1
-    input_value_ary: []
+    value: @props.questions.answer["correct"] || 1
+    input_value_ary: @props.questions.answer["choice"] || []
     radio_checked: ''
 
   render: ->
@@ -21,6 +21,14 @@ Page = React.createClass
         offset: 2,
       },
     }
+
+    ary = @state.input_value_ary
+    if ary.length < @state.radio_count
+      for j in [1..@state.radio_count]
+        ary.push({id: "#{j}", text: ""})
+    else
+      ary = @state.input_value_ary
+
     <div className='user-new-page'>
       <div className='user-form'>
         <Form onSubmit={@submit}>
@@ -55,34 +63,24 @@ Page = React.createClass
           <FormItem 
             {...tailFormItemLayout}
           >
-          {getFieldDecorator('Questions[answer]',)(
-            <RadioGroup onChange={@onChange}>
+            <RadioGroup onChange={@onChange} value={@state.value}>
               { 
                 if  @props.questions.answer != null
-                  temp_num = @props.questions.answer.correct
-                  for i in [1..@state.radio_count]
-                    # 如果选项中的 id 和 correct 相等时则选中（还未实现）
-                    if String(temp_num) == @props.questions.answer["choice"][i - 1].id
-                      <Radio  className="radio-event-style" key="#{i}"  value={i}>
-                        <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} 
-                          defaultValue={@props.questions.answer["choice"][i - 1].text} />
-                        <a href="javascript:;" onClick={@delete_radio.bind(null, this)}>删除选项</a>
-                      </Radio>
-                    else
-                      <Radio  className="radio-event-style" key="#{i}"  value={i} >
-                        <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} 
-                          defaultValue={@props.questions.answer["choice"][i - 1].text} />
-                        <a href="javascript:;" onClick={@delete_radio.bind(null, this)}>删除选项</a>
-                      </Radio>
+                  for i in [1..@state.radio_count] 
+                    rv = parseInt(ary[i-1].id)
+                    <Radio  className="radio-event-style" key={ary[i-1].id+ary[i-1].text}  value={rv} >
+                      <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} 
+                        defaultValue={@props.questions.answer["choice"][i - 1].text} />
+                      <a href="javascript:;" onClick={@delete_radio.bind(this, i)}>删除选项</a>
+                    </Radio>
                 else
                   for i in [1..@state.radio_count]
-                    <Radio  className="radio-event-style" key="#{i}"  value={i}>
-                      <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} />
-                      <a href="javascript:;" onClick={@delete_radio.bind(null, this)}>删除选项</a>
+                    <Radio  className="radio-event-style" key={ary[i-1].id+ary[i-1].text}  value={i}>
+                      <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} defaultValue={ary[i-1].text} />
+                      <a href="javascript:;" onClick={@delete_radio.bind(this, i)}>删除选项</a>
                     </Radio>
               }
             </RadioGroup>
-          )}
           </FormItem>
 
           <FormItem 
@@ -110,6 +108,7 @@ Page = React.createClass
     console.log('radio checked', e.target.value)
     @setState
       radio_checked: e.target.value
+      value: e.target.value
 
   input_on_change: (e)->
     if @props.questions.answer != null
@@ -137,14 +136,33 @@ Page = React.createClass
         input_value_ary:data
 
   add_radio_event: ()->
+    temp_ary = @state.input_value_ary
+    temp_ary.push({id:"#{parseInt(temp_ary[temp_ary.length-1].id) + 1}", text: ""})
+    console.log temp_ary
     @setState
       radio_count: @state.radio_count + 1
+      input_value_ary: temp_ary
 
-  delete_radio: (data)->
+  delete_radio: (key_num)->
+    temp_ary = @state.input_value_ary
     if @state.radio_count > 1
+      for i in [0...temp_ary.length]
+        if temp_ary[i].id == String(key_num)
+          temp_ary.splice(i, 1)
+          break
+
+      if temp_ary[0].id == "2"
+            temp_ary[0].id = String(parseInt(temp_ary[0].id) - 1)
+
+      for j in [0...temp_ary.length]
+        if j < temp_ary.length - 1
+          if parseInt(temp_ary[j+1].id) - parseInt(temp_ary[j].id) == 2
+            temp_ary[j+1].id = String(parseInt(temp_ary[j+1].id) - 1)
+
       data = @state.radio_count - 1
       @setState
         radio_count: data
+        input_value_ary: temp_ary
 
   submit: (evt)->
     evt.preventDefault()
@@ -154,17 +172,6 @@ Page = React.createClass
     data = @props.form.getFieldsValue()
     if data["Questions[kind]"] == "单选"
       data["Questions[kind]"] = "single_choice"
-
-    # 当不做任何修改或者只修改问题时
-    if @state.input_value_ary.length == 0 && @props.questions.answer != null && @state.radio_checked == ''
-      data["Questions[answer]"] = @props.questions.answer
-
-    # 当只修改正确答案时
-    if @state.input_value_ary.length == 0 && @props.questions.answer != null && @state.radio_checked != ''
-      data["Questions[answer]"] = {
-        choice: @props.questions.answer.choice,
-        correct: @state.radio_checked
-      }
 
     # 当修改选项时
     if @state.input_value_ary.length >= 1
