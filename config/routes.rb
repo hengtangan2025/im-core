@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     resources :tags
   end
 
+  resources :admin
+
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member

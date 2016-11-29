@@ -51,3 +51,6 @@ register require 'app/admin/reference/ReferencesIndexPage'
 # 标签
 register (require 'app/admin/tag/EditPage'), 'EditPage'
 register require 'app/admin/tag/TagsIndexPage'
+
+#admin/index
+register require 'app/admin/AdminIndexPage'
