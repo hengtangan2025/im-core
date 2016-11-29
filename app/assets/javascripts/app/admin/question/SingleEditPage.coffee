@@ -6,9 +6,9 @@ RadioGroup = Radio.Group
 
 Page = React.createClass
   getInitialState: ()->
-    radio_count: @props.choice_count
+    radio_count: @props.choice_count || 4
     value: @props.questions.answer["correct"] || 1
-    input_value_ary: @props.questions.answer["choice"] || []
+    input_value_ary: @props.questions.answer["choices"] || []
     radio_checked: ''
 
   render: ->
@@ -67,10 +67,9 @@ Page = React.createClass
               { 
                 if  @props.questions.answer != null
                   for i in [1..@state.radio_count] 
-                    rv = parseInt(ary[i-1].id)
-                    <Radio  className="radio-event-style" key={ary[i-1].id+ary[i-1].text}  value={rv} >
+                    <Radio  className="radio-event-style" key={ary[i-1].id+ary[i-1].text}  value={@props.questions.answer["choices"][i - 1].id} >
                       <Input className="in-radio-input" placeholder="请输入选项内容" type="textarea" id="#{i}" rows={6} onBlur={@input_on_change} 
-                        defaultValue={@props.questions.answer["choice"][i - 1].text} />
+                        defaultValue={@props.questions.answer["choices"][i - 1].text} />
                       <a href="javascript:;" onClick={@delete_radio.bind(this, i)}>删除选项</a>
                     </Radio>
                 else

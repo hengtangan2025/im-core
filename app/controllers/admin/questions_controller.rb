@@ -65,7 +65,7 @@ class Admin::QuestionsController < ApplicationController
     choice_count = 0
     if question.kind == "single_choice"
       @component_name = "SingleEditPage"
-      choice_count = question.answer["choice"].length
+      choice_count = question.answer["choices"].length
     end
 
     if question.kind == "multi_choice"

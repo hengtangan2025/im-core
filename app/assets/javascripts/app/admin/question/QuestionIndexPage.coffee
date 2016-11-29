@@ -6,18 +6,32 @@ module.exports = QuestionIndexPage = React.createClass
       {
         title: "问题"
         dataIndex: "content"
+        width: 800
       }
       {
         title: "类型"
         dataIndex: "kind"
+        width: 70
       }
       {
         title: "选项"
         dataIndex: "answer"
+        render: (choice) =>
+          if choice.length == 1
+            <div>
+              <p>{choice[0]}</p>
+            </div>
+          else
+            for c in choice
+              c_num = choice.indexOf(c) + 1
+              <div key={c.id}>
+                <p>{c_num}、{c.text}</p>
+              </div>
       }
       {
         title: "操作"
         dataIndex: "id"
+        width: 170
         render: (record) =>
           <div className="admin-option-tag-a">
             <a className='ant-btn ant-btn-primary' href="/admin/questions/#{record}/edit">编辑</a>
@@ -28,7 +42,7 @@ module.exports = QuestionIndexPage = React.createClass
     data = []
     for i in @props.questions
       kind_s = ''
-      answer_s = ''
+      answer_s = []
       if i.kind == "single_choice"
         kind_s = "单选题"
       if i.kind == "multi_choice"
@@ -36,18 +50,13 @@ module.exports = QuestionIndexPage = React.createClass
       if i.kind == "bool"
         kind_s = "判断题"
 
-      if i.answer.choice != undefined
-        for j in i.answer.choice
-          answer_s += "#{j.text}，"
-        answer_s = answer_s.substring(0, answer_s.length - 1)
-
+      if i.answer.choices != undefined
+        answer_s = i.answer.choices
       else if i.answer == true || i.answer == false
         if i.answer == true
-          answer_s = "对"
+          answer_s.push("对")
         else
-          answer_s = "错"
-      else
-        answer_s = i.answer
+          answer_s.push("错")
 
       data.push({
         content: i.content,
@@ -56,7 +65,13 @@ module.exports = QuestionIndexPage = React.createClass
         id: i.id
       })
 
-      
+    pagination = 
+      total: data.length,
+      showSizeChanger: true,
+      onShowSizeChange: (current, pageSize)->
+        console.log('Current: ', current, '; PageSize: ', pageSize)
+      onChange: (current)->
+        console.log('Current: ', current)
 
     <div className='sample-users-table'>
       <div className="admin-tag-a">
@@ -64,7 +79,7 @@ module.exports = QuestionIndexPage = React.createClass
         <a className='ant-btn ant-btn-primary' href={@props.multi_new_url}>新增多选题</a>
         <a className='ant-btn ant-btn-primary' href={@props.bool_new_url}>新增判断题</a>
       </div>
-      <Table columns={columns} dataSource={data} pagination={false} size='small' />
+      <Table columns={columns} dataSource={data} pagination={pagination} size='small' />
     </div>
 
   delete: (data)->
@@ -73,4 +88,3 @@ module.exports = QuestionIndexPage = React.createClass
       url: "/admin/questions/#{data}"
     .done (res)->
       console.log(res.message)
-
