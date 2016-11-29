@@ -16,7 +16,7 @@
         "item": "D",
         "text": "总行内控合规部"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -36,7 +36,7 @@
         "item": "D", 
         "text": "临时授权"
       }],
-      "corrects": "B"
+      "correct": "B"
     }
   },
   {
@@ -56,7 +56,7 @@
         "item": "D", 
         "text": "三年"
       }],
-      "corrects": "B"
+      "correct": "B"
     }
   },
   {
@@ -76,7 +76,7 @@
         "item": "D", 
         "text": "建设银行支行行长"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -96,7 +96,7 @@
         "item": "D", 
         "text": "四年"
       }],
-      "corrects": "B"
+      "correct": "B"
     }
   },
   {
@@ -116,7 +116,7 @@
         "item": "D", 
         "text": "授权变更无需通过“授权变更通知”的形式"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   },
   {
@@ -136,7 +136,7 @@
         "item": "D", 
         "text": "特别授权的有效期自授权人签章之日起有效，至授权事项办理完结终止，最长期限不得超过两年"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   },
   {
@@ -156,7 +156,7 @@
         "item": "D", 
         "text": "经营管理层面授权"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   },
   {
@@ -176,7 +176,7 @@
         "item": "D", 
         "text": "一般授权"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -196,7 +196,7 @@
         "item": "D", 
         "text": "一般授权"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   },
   {
@@ -216,7 +216,7 @@
         "item": "D", 
         "text": "特别授权书不能直接用于对外出具"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   }]
 }

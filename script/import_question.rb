@@ -39,7 +39,7 @@ def import_a_file(link)
         params_answer_correct = item_id_hash[question["answer"]["correct"]]
         params_answer = {"choices": params_answer_choices ,"correct": params_answer_correct} 
       end
-      Question.create(:kind=>question["kind"],:content=>question["kind"],:answer=>params_answer)
+      Question.create(:kind=>question["kind"],:content=>question["content"],:answer=>params_answer)
 
     when "bool"
       Question.create(question)
