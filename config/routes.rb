@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     resources :faqs
     resources :references
     resources :tags
+    resources :questions do
+      get :multi_new, on: :collection
+      get :bool_new, on: :collection
+    end
   end
 
   resources :admin
