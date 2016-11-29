@@ -16,7 +16,7 @@
         "item": "D",
         "text": "1年以内（含1年）"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -36,7 +36,7 @@
         "item": "D", 
         "text": "10年以上"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   },
   {
@@ -56,7 +56,7 @@
         "item": "D", 
         "text": "商业汇票贴现"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   },
   {
@@ -76,7 +76,7 @@
         "item": "D", 
         "text": "最终承担债权"
       }],
-      "corrects": "D"
+      "correct": "D"
     }
   },
   {
@@ -96,7 +96,7 @@
         "item": "D", 
         "text": "方式、担保"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   },
   {
@@ -116,7 +116,7 @@
         "item": "D", 
         "text": "1年（含1年）到5年之间（含5年）"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   },
   {
@@ -136,7 +136,7 @@
         "item": "D", 
         "text": "固定资产贷款"
       }],
-      "corrects": "B"
+      "correct": "B"
     }
   },
   {
@@ -156,7 +156,7 @@
         "item": "D", 
         "text": "环境和经济风险"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -176,7 +176,7 @@
         "item": "D", 
         "text": "绿色信贷理念"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   },
   {
@@ -196,7 +196,7 @@
         "item": "D", 
         "text": "合法性"
       }],
-      "corrects": "B"
+      "correct": "B"
     }
   },
   {
@@ -216,7 +216,7 @@
         "item": "D", 
         "text": "合法性"
       }],
-      "corrects": "A"
+      "correct": "A"
     }
   },
   {
@@ -236,7 +236,7 @@
         "item": "D", 
         "text": "合法性"
       }],
-      "corrects": "C"
+      "correct": "C"
     }
   }]
 }
