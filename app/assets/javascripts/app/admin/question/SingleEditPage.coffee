@@ -71,7 +71,6 @@ Page = React.createClass
   add_radio_event: ()->
     temp_ary = @state.input_value_ary
     temp_ary.push({id: @random_string(8), text: ""})
-    console.log temp_ary
     @setState
       radio_count: @state.radio_count + 1
       input_value_ary: temp_ary
