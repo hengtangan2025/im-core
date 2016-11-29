@@ -52,13 +52,13 @@ register require 'app/admin/reference/ReferencesIndexPage'
 register (require 'app/admin/tag/EditPage'), 'EditPage'
 register require 'app/admin/tag/TagsIndexPage'
 
-<<<<<<< HEAD
+
 #admin/index
 register require 'app/admin/AdminIndexPage'
-=======
+
 # 测试题管理  
 register require 'app/admin/question/QuestionIndexPage'
 register (require 'app/admin/question/SingleEditPage'), 'SingleEditPage'
 register (require 'app/admin/question/MultiEditPage'), 'MultiEditPage'
 register (require 'app/admin/question/BoolEditPage'), 'BoolEditPage'
->>>>>>> 47bc5f28207440b013f6027725dbcb960dd46249
+

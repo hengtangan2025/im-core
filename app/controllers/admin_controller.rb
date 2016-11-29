@@ -24,7 +24,7 @@ class AdminController < ApplicationController
       },
       question: {
         count: Question.count,
-        path: questions_path,
+        path: admin_questions_path,
       },
       file: {
         count: '1',
