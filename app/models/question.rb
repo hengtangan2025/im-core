@@ -37,7 +37,7 @@ class Question
       kind:self.kind,
       content: self.content,
       answer: {
-        choice: [],
+        choices: [],
         correct: 1
       }
     }
