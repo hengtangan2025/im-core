@@ -27,9 +27,10 @@ class Admin::QuestionsController < ApplicationController
     question = Question.new
     @component_name = "MultiEditPage"
     @component_data = {
-      questions: question.controller_data,
+      questions: question.single_controller_data,
       submit_url: admin_questions_path,
       cancel_url: admin_questions_path,
+      choice_count: 4,
     }
   end
 
@@ -70,6 +71,7 @@ class Admin::QuestionsController < ApplicationController
 
     if question.kind == "multi_choice"
       @component_name = "MultiEditPage"
+      choice_count = question.answer["choices"].length
     end
 
     if question.kind == "bool"
