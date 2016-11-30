@@ -37,8 +37,9 @@ class Question
       kind:self.kind,
       content: self.content,
       answer: {
-        choice: [],
-        correct: 1
+        choices: [],
+        correct: 1,
+        corrects: [],
       }
     }
   end
