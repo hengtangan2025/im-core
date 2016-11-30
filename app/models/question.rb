@@ -38,7 +38,8 @@ class Question
       content: self.content,
       answer: {
         choices: [],
-        correct: 1
+        correct: 1,
+        corrects: [],
       }
     }
   end

@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :admin
+
   resources :organizations do
     get :trees, on: :collection
     get :show_tree, on: :member
