@@ -21,7 +21,7 @@ module.exports = UploadPage = React.createClass
           </div>
         }
       </div>
-      <a className='ant-btn ant-btn-primary' href='javascript:;'>取消</a>
+      <a className='ant-btn ant-btn-primary' href={@props.cancel_path}>取消</a>
     </div> 
 
 

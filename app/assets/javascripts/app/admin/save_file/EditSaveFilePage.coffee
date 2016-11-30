@@ -61,7 +61,7 @@ Page = React.createClass
             <Button type="primary" htmlType="submit" className="form-button">
               <FaIcon type='check' /> 确定
             </Button>
-            <a className='ant-btn ant-btn-primary' href={""}>
+            <a className='ant-btn ant-btn-primary' href={@props.cancel_path}>
               <FaIcon type='close' /> 取消
             </a>
           </FormItem>

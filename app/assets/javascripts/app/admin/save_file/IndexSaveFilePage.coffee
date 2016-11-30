@@ -4,7 +4,7 @@ module.exports = IndexSaveFilePage = React.createClass
   delete: (data)->
     jQuery.ajax
       type: 'DELETE'
-      url: "/admin/save_files/#{data}"
+      url: "/admin/files/#{data}"
 
 
   render: ->
@@ -30,7 +30,7 @@ module.exports = IndexSaveFilePage = React.createClass
         dataIndex: "id"
         render: (id) =>
           <div>
-            <Button type="primary"><a href="/admin/save_files/#{id}/edit">编辑</a></Button>
+            <Button type="primary"><a href="/admin/files/#{id}/edit">编辑</a></Button>
             <Button type="primary" data={id} onClick={@delete.bind(this,id)}>删除</Button>
           </div>
       }

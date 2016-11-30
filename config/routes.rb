@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get :multi_new, on: :collection
       get :bool_new, on: :collection
     end
-    resources :save_files do
+    resources :save_files, path: 'files' do
       get :upload, on: :collection
     end
   end

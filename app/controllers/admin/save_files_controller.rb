@@ -11,7 +11,8 @@ class Admin::SaveFilesController < ApplicationController
     @component_name = 'UploadPage'
     @component_data = {
       data: FilePartUpload.get_dom_data,
-      create_path: admin_save_files_path
+      create_path: admin_save_files_path,
+      cancel_path: admin_save_files_path,
     }
   end
 
@@ -29,7 +30,8 @@ class Admin::SaveFilesController < ApplicationController
       :all_tags => Tag.all.map{|tag| tag.controller_data}.to_a,
       :file_entity_name => save_file.file_entity.original,
       :file_entity_type => save_file.file_entity.mime,
-      :update_path => admin_save_file_path(save_file)
+      :update_path => admin_save_file_path(save_file),
+      :cancel_path => admin_save_files_path,
     }
 
   end
