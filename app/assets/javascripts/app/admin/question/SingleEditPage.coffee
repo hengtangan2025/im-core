@@ -78,6 +78,10 @@ Page = React.createClass
   # 删除选项
   delete_radio: (key_num)->
     temp_ary = @state.input_value_ary
+
+    if @props.questions.content != null && @props.questions.answer.correct == key_num
+      @props.questions.answer.correct = ''
+
     if @state.radio_count > 1
       for i in [0...temp_ary.length]
         if temp_ary[i].id == key_num
@@ -102,7 +106,6 @@ Page = React.createClass
         offset: 2,
       },
     }
-    console.log @state.input_value_ary
     <div className='user-new-page'>
       <div className='user-form'>
         <Form onSubmit={@submit}>
