@@ -210,7 +210,7 @@ Page = React.createClass
       for j in [0...corrects_ary.length]
         if corrects_ary[j] == key_num
           corrects_ary.splice(j, 1)
-          break
+          
     if @state.check_box_count > 1
       for i in [0...temp_ary.length]
         if temp_ary[i].id == key_num
