@@ -62,6 +62,23 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
+  # android 登录验证
+  def sign_in
+    user = User.where(email: params[:email])
+    if user.count == 0
+      render json: {valid_info: "用户不存在 !"}
+    end
+
+    if user.count == 1
+      if user.first.valid_password?(params[:password])
+        render json: {valid_info: "successfully"}
+      else
+        render json: {valid_info: "密码错误 !"}
+      end
+    end
+    
+  end
+
   private
     def user_params
       params.require(:user).permit(:email, :password)

@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   root to: 'index#index'
   
   namespace :admin do
-    resources :users
+    resources :users do
+      post :sign_in, on: :collection
+    end
     resources :organizations do
       get :tree_show, on: :collection
     end
