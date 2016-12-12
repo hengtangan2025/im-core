@@ -18,7 +18,10 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :users do
-      post :sign_in, on: :collection
+      post :do_sign_in, on: :collection
+      post :do_sign_out, on: :collection
+      post :update_user, on: :collection
+      get :get_user_detail, on: :collection
     end
     resources :organizations do
       get :tree_show, on: :collection
