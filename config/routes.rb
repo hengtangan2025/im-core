@@ -26,8 +26,14 @@ Rails.application.routes.draw do
     resources :organizations do
       get :tree_show, on: :collection
     end
-    resources :faqs
-    resources :references
+    resources :faqs do 
+      get :get_faq_detail, on: :collection
+    end
+
+    resources :references do
+      get :get_ref_detail, on: :collection
+    end
+
     resources :tags
     resources :questions do
       get :multi_new, on: :collection

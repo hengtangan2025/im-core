@@ -70,7 +70,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def get_user_detail
-
     render json: {
       password: current_user.password,
       email: current_user.email,

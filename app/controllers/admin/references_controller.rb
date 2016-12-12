@@ -54,6 +54,25 @@ class Admin::ReferencesController < ApplicationController
     redirect_to admin_references_path
   end
 
+  # android 获取参考资料
+  def get_ref_detail
+    references = Reference.all
+    ref_ary = []
+    references.each do |ref|
+      tag_ary = []
+      ref.tags.each do |tag|
+        tag_ary.push(tag.name)
+      end
+      ref_ary.push({
+        name: ref.name,
+        tags: tag_ary,
+      })
+    end
+    render json: {
+      references: ref_ary,
+    }
+  end
+
   private
     def reference_params
       params.require(:References).permit(:name, :describe, :kind, :tags_name => [])
