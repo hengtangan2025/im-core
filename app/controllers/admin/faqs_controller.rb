@@ -61,13 +61,13 @@ class Admin::FaqsController < ApplicationController
     faqs = Faq.all
     faq_ary = []
     faqs.each do |faq|
-      tag_ary = []
+      tags_str = ''
       faq.tags.each do |tag|
-        tag_ary.push(tag.name)
+        tags_str += '#' + tag.name + ' '
       end
       faq_ary.push({
         question: faq.question,
-        tags: tag_ary,
+        tags: tags_str,
       })
     end
     render json: {

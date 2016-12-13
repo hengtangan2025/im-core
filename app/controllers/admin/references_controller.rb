@@ -59,13 +59,13 @@ class Admin::ReferencesController < ApplicationController
     references = Reference.all
     ref_ary = []
     references.each do |ref|
-      tag_ary = []
+      tags_str = ''
       ref.tags.each do |tag|
-        tag_ary.push(tag.name)
+        tags_str += '#' + tag.name + ' '
       end
       ref_ary.push({
         name: ref.name,
-        tags: tag_ary,
+        tags: tags_str,
       })
     end
     render json: {
