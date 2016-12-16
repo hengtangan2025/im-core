@@ -75,7 +75,7 @@ class Admin::ReferencesController < ApplicationController
 
   private
     def reference_params
-      params.require(:References).permit(:name, :describe, :kind, :tags_name => [])
+      params.require(:References).permit(:name, :describe, :kind, :reference_file_name, :tags_name => [])
     end
 
 end

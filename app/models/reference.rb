@@ -8,6 +8,7 @@ class Reference
   field :name, type: String
   field :describe, type: String
   field :kind, type: String
+  field :reference_file_name, type: String
 
   validates :name, :kind, presence: true
 
@@ -43,7 +44,8 @@ class Reference
       all_kind: KINDS,
       tags: self.tags.map{ |tag|
         tag.simple_controller_data
-      }
+      },
+      reference_file_name: self.reference_file_name
     }
   end
 

@@ -79,6 +79,20 @@ Page = React.createClass
           )}
           </FormItem>
 
+          <FormItem 
+            {...formItemLayout}
+            label="引用文件"
+          >
+          {getFieldDecorator('References[reference_file_name]', {
+            rules: [{
+              required: true, message: '请输入引用文件名',
+            }],
+            initialValue: @props.references.reference_file_name
+          })(
+            <Input className="form-input" placeholder="输入引用文件名" />
+          )}
+          </FormItem>
+
           <FormItem>
             <Button type="primary" htmlType="submit" className="form-button">
               <FaIcon type='check' /> 确定
