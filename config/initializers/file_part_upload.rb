@@ -22,4 +22,8 @@ FilePartUpload.config do
   # 所以这里需要配置 App-Server Host,并且可以被公网访问
   qiniu_callback_host  "http://yy.yy.yy"
 
+  qiniu_audio_and_video_transcode :enable
+
+  qiniu_pfop_pipeline "transfer"
+
 end
