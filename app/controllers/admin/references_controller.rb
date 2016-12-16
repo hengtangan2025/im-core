@@ -64,12 +64,21 @@ class Admin::ReferencesController < ApplicationController
         tags_str += '#' + tag.name + ' '
       end
       ref_ary.push({
+        id: ref.id.to_s,
         name: ref.name,
         tags: tags_str,
       })
     end
     render json: {
       references: ref_ary,
+    }
+  end
+
+  # 获取资料中的文件用于 Android 端阅读或播放
+  def fetch_ref_file
+    reference = Reference.find(params[:id])
+    render json:{
+      name: reference.name,
     }
   end
 

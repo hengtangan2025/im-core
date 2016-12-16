@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
     resources :references do
       get :get_ref_detail, on: :collection
+      get :fetch_ref_file, on: :collection
     end
 
     resources :tags
