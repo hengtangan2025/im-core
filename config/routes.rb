@@ -41,7 +41,8 @@ Rails.application.routes.draw do
       get :bool_new, on: :collection
     end
     resources :save_files, path: 'files' do
-      get :upload, on: :collection
+      get  :upload, on: :collection
+      post :antd_check_uniq, on: :collection
     end
   end
 
