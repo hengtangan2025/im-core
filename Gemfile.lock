@@ -1,19 +1,17 @@
 GIT
-  remote: git://github.com/blackdust/file-part-upload.git
-  revision: d8e6e1b3a163e5c8deda0c170d683e6c71342df2
-  ref: d8e6e
-  specs:
-    file-part-upload (3.2.0)
-      enumerize
-      mime-types
-      qiniu (~> 6.4.1)
-
-GIT
   remote: git://github.com/mindpin/mina_util.git
   revision: 25f36fdf391318566cb68c7e7db20743cc6f944f
   ref: 25f36fd
   specs:
     mina_util (0.1.0)
+
+PATH
+  remote: ../file-part-upload
+  specs:
+    file-part-upload (3.2.0)
+      enumerize
+      mime-types
+      qiniu (~> 6.4.1)
 
 GEM
   remote: https://gems.ruby-china.org/

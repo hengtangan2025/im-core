@@ -33,7 +33,7 @@ module.exports = UploadPage = React.createClass
       dragdrop_area: null
       file_progress_class: UploadUtils.GenerateOneFileUploadProgress(@)
       max_file_size: "10mb" # 允许上传的文件大小，如果不传递该参数，默认是 "10mb"
-      mime_types : [{ title : "Image files", extensions : "jpg,gif,png,mp4" }] # 限制允许上传的文件类型
+      mime_types : [{ title : "Image files", extensions : "jpg,gif,png,mp4,pdf,doc,mkv" }] # 限制允许上传的文件类型
 
 UploadUtils = 
    GenerateOneFileUploadProgress: (react)->
