@@ -106,12 +106,12 @@ group :production do
   gem 'unicorn', '~> 5.1'
 end
 
-# gem 'file-part-upload',
-#   :github => "blackdust/file-part-upload",
-#   :ref    => "d8e6e"
-
 gem 'file-part-upload',
-  :path => "../file-part-upload"
+  :github => "blackdust/file-part-upload",
+  :ref    => "4e8385dc4e19c31f04b66b297b160ad88eb273d3"
+
+# gem 'file-part-upload',
+#   :path => "../file-part-upload"
 
 
 
