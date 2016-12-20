@@ -67,6 +67,7 @@ class Admin::ReferencesController < ApplicationController
         id: ref.id.to_s,
         name: ref.name,
         tags: tags_str,
+        kind: ref.kind,
       })
     end
     render json: {

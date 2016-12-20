@@ -45,7 +45,8 @@ class Reference
       tags: self.tags.map{ |tag|
         tag.simple_controller_data
       },
-      reference_file_name: self.reference_file_name
+      reference_file_name: self.reference_file_name,
+      save_file_ary: SaveFile.all.map {|save_file| save_file.name}.to_a,
     }
   end
 

@@ -89,7 +89,15 @@ Page = React.createClass
             }],
             initialValue: @props.references.reference_file_name
           })(
-            <Input className="form-input" placeholder="输入引用文件名" />
+            <Select
+              placeholder="输入引用文件名"
+              className="form-input"
+            >
+              {
+                for i in @props.references.save_file_ary
+                  <Option key={i}>{i}</Option>
+              }
+            </Select>
           )}
           </FormItem>
 
