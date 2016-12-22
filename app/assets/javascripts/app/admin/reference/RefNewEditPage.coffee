@@ -85,7 +85,7 @@ Page = React.createClass
           >
           {getFieldDecorator('References[reference_file_name]', {
             rules: [{
-              required: true, message: '请输入引用文件名',
+              validator: this.check_present,
             }],
             initialValue: @props.references.reference_file_name
           })(
@@ -105,6 +105,20 @@ Page = React.createClass
         </Form>
       </div>
     </div>
+
+  check_present: (rule, value, callback)-> 
+
+    if value == ""
+       callback('不为空')
+    else
+      params = {"name" : value}
+      jQuery.ajax
+        type: 'POST'
+        url: "/admin/files/antd_check_name_present"
+        data: params 
+      .success (msg) =>
+        if msg["msg"] != "成功"
+          callback(msg["msg"])
 
   submit: (evt)->
     evt.preventDefault()

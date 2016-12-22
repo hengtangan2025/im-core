@@ -64,9 +64,10 @@ class Admin::ReferencesController < ApplicationController
         tags_str += '#' + tag.name + ' '
       end
       ref_ary.push({
-        id: ref.id.to_s,
+        id:   ref.id.to_s,
         name: ref.name,
         tags: tags_str,
+        kind: SaveFile.where(:name => ref.reference_file_name).first.file_entity.kind
       })
     end
     render json: {
@@ -76,10 +77,29 @@ class Admin::ReferencesController < ApplicationController
 
   # 获取资料中的文件用于 Android 端阅读或播放
   def fetch_ref_file
-    reference = Reference.find(params[:id])
-    render json:{
-      name: reference.name,
-    }
+    ref         = Reference.find(params[:id])
+    file_entity = SaveFile.where(:name => ref.reference_file_name).first.file_entity
+    case file_entity.kind
+      when "video"
+      render json:{
+        name: ref.name,
+        url: file_entity.transcoding_records.first.url,
+        status:file_entity.transcoding_records.first.status,
+      }
+      when "pdf"
+      render json:{
+        name: ref.name,
+        urls: file_entity.transcode_urls("jpg")
+      }
+      when "office"
+      # 部署到公网后set status 执行jpg转换代码可以删除
+      SaveFile.where(:name=>Reference.last.reference_file_name).first.file_entity.transcoding_records.first.update_status_by_code(0)
+      render json:{
+        name: ref.name,
+        urls: file_entity.transcode_urls("jpg")
+      }
+    end
+
   end
 
   private
