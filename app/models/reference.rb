@@ -10,11 +10,13 @@ class Reference
   field :kind, type: String
   field :reference_file_name, type: String
 
-  validates :name, :kind, :reference_file_name, presence: true
+  validates :name, :kind, presence: true
   validate :file_name_exist
 
   def file_name_exist
-    return errors.add(:base, '文件不存在') if !SaveFile.where(:name => self.reference_file_name).present?
+    unless self.reference_file_name == ""
+      return errors.add(:base, '文件不存在') if !SaveFile.where(:name => self.reference_file_name).present?
+    end
   end
 
   KINDS = ["文章", "文档", "视频", "链接"]

@@ -84,7 +84,9 @@ class Admin::SaveFilesController < ApplicationController
   end
 
   def antd_check_name_present
-    if !SaveFile.where(:name => params[:name]).present?
+    if params[:name] == ""
+      render json: {"msg": "成功"}
+    elsif !SaveFile.where(:name => params[:name]).present?
       render json: {"msg": "文件不存在，请输入已有自定义文件名"}
     else
       render json: {"msg": "成功"}

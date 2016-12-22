@@ -108,17 +108,14 @@ Page = React.createClass
 
   check_present: (rule, value, callback)-> 
 
-    if value == ""
-       callback('不为空')
-    else
-      params = {"name" : value}
-      jQuery.ajax
-        type: 'POST'
-        url: "/admin/files/antd_check_name_present"
-        data: params 
-      .success (msg) =>
-        if msg["msg"] != "成功"
-          callback(msg["msg"])
+    params = {"name" : value}
+    jQuery.ajax
+      type: 'POST'
+      url: "/admin/files/antd_check_name_present"
+      data: params 
+    .success (msg) =>
+      if msg["msg"] != "成功"
+        callback(msg["msg"])
 
   submit: (evt)->
     evt.preventDefault()
