@@ -83,11 +83,7 @@ class Admin::ReferencesController < ApplicationController
   # 获取资料中的文件用于 Android 端阅读或播放
   def fetch_ref_file
     ref         = Reference.find(params[:id])
-    if ref.reference_file_name == ""
-      render json:{
-        name: ref.name
-      }
-    else
+    if ref.reference_file_name != ""
       file_entity = SaveFile.where(:name => ref.reference_file_name).first.file_entity
       case file_entity.kind
         when "video"
@@ -103,7 +99,7 @@ class Admin::ReferencesController < ApplicationController
         }
         when "office"
         # 部署到公网后set status 执行jpg转换代码可以删除
-        SaveFile.where(:name=>Reference.last.reference_file_name).first.file_entity.transcoding_records.first.update_status_by_code(0)
+        SaveFile.where(:name => ref.reference_file_name).first.file_entity.transcoding_records.first.update_status_by_code(0)
         render json:{
           name: ref.name,
           urls: file_entity.transcode_urls("jpg")
