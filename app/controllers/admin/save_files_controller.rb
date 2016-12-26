@@ -83,6 +83,16 @@ class Admin::SaveFilesController < ApplicationController
     end
   end
 
+  def antd_check_name_present
+    if params[:name] == ""
+      render json: {"msg": "成功"}
+    elsif !SaveFile.where(:name => params[:name]).present?
+      render json: {"msg": "文件不存在，请输入已有自定义文件名"}
+    else
+      render json: {"msg": "成功"}
+    end
+  end
+
   private 
    def save_file_params
      params.require(:SaveFile).permit(:name, :tags_name => [])

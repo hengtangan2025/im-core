@@ -58,17 +58,22 @@ class Admin::ReferencesController < ApplicationController
   def get_ref_detail
     references = Reference.all
     ref_ary = []
+    kind = ''
     references.each do |ref|
       tags_str = ''
       ref.tags.each do |tag|
         tags_str += '#' + tag.name + ' '
       end
+      if ref.reference_file_name != ""
+        kind = SaveFile.where(:name => ref.reference_file_name).first.file_entity.kind
+      end
       ref_ary.push({
-        id: ref.id.to_s,
+        id:   ref.id.to_s,
         name: ref.name,
         tags: tags_str,
         kind: ref.kind,
       })
+      kind = ''
     end
     render json: {
       references: ref_ary,
@@ -77,10 +82,30 @@ class Admin::ReferencesController < ApplicationController
 
   # 获取资料中的文件用于 Android 端阅读或播放
   def fetch_ref_file
-    reference = Reference.find(params[:id])
-    render json:{
-      name: reference.name,
-    }
+    ref         = Reference.find(params[:id])
+    if ref.reference_file_name != ""
+      file_entity = SaveFile.where(:name => ref.reference_file_name).first.file_entity
+      case file_entity.kind
+        when "video"
+        render json:{
+          name: ref.name,
+          url: file_entity.transcoding_records.first.url,
+          status:file_entity.transcoding_records.first.status.to_s,
+        }
+        when "pdf"
+        render json:{
+          name: ref.name,
+          urls: file_entity.transcode_urls("jpg")
+        }
+        when "office"
+        # 部署到公网后set status 执行jpg转换代码可以删除
+        SaveFile.where(:name => ref.reference_file_name).first.file_entity.transcoding_records.first.update_status_by_code(0)
+        render json:{
+          name: ref.name,
+          urls: file_entity.transcode_urls("jpg")
+        }
+      end
+    end
   end
 
   private
